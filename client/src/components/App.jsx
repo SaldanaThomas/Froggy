@@ -1,5 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import Overview from './Overview.jsx';
+import Drinks from './Drinks.jsx';
+import Categories from './Categories.jsx';
+import Ingredients from './Ingredients.jsx';
+import Alcoholic from './Alcoholic.jsx';
+import Glass from './Glass.jsx';
 
 function App() {
   const [popularDrinks, setPopularDrinks] = useState([]);
@@ -34,33 +40,36 @@ function App() {
     getDrinks();
   }, []);
 
-  console.log(latestDrinks);
-  console.log(categories);
-  console.log(ingredients);
-  console.log(glass);
-
   return (
     <div>
       <h1>Froggy Cocktails</h1>
-      <div>Search Options</div>
-      {popularDrinks.length ? <h2>{popularDrinks[0].strDrink}</h2> : null}
-      {popularDrinks.length ? <img src={popularDrinks[0].strDrinkThumb} alt="drink" /> : null}
-      <div>Ingredients</div>
-      <div>Other drinks</div>
+      <h3>Categories</h3>
+      <select>
+        {categories.map((category, index) => <Categories filter={category} key={index} />)}
+      </select>
+      <h3>Ingredients</h3>
+      <select>
+        {ingredients.map((ingredient, index) => <Ingredients filter={ingredient} key={index} />)}
+      </select>
+      <h3>Alcoholic</h3>
+      <select>
+        {alcoholic.map((content, index) => <Alcoholic filter={content} key={index} />)}
+      </select>
+      <h3>Glass</h3>
+      <select>
+        {glass.map((type, index) => <Glass filter={type} key={index} />)}
+      </select>
+      {popularDrinks.length && <Overview drink={popularDrinks[0]} />}
+      <h2>Popular Drinks</h2>
+      {popularDrinks.map((drink, index) => {
+        return index === 0 ? null : <Drinks drink={drink} key={index} />}
+      )}
+      <div>Other stuff</div>
+      <h2>Latest Drinks</h2>
+      {latestDrinks.map((drink, index) => <Drinks drink={drink} key={index} />)}
       <div>Other stuff</div>
     </div>
   );
 }
 
 export default App;
-
-// idDrink
-// strAlcoholic
-// strCategory
-// strDrink
-// strDrinkThumb
-// strGlass
-// strIBA
-// strIngredientX
-// strInstructions
-// strMeasureX
