@@ -14,12 +14,12 @@ module.exports = {
   },
 
   patch: (data, callback) => {
-    db.updateOne({ _id: data._id }, data)
-      .exec((err, result) => callback(err, result));
+    db.updateOne({ _id: data._id }, data).exec((err, result) => {
+      callback(err, result);
+    });
   },
 
   remove: (data, callback) => {
-    db.deleteOne(data)
-      .exec((err, result) => callback(err, result));
+    db.deleteOne(data).exec((err, result) => callback(err, result));
   },
 };

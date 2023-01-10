@@ -3,14 +3,15 @@ import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 
-const Categories = ({ categories }) => {
+const Categories = ({ categories, getRelated }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
-  const handleClose = () => {
+  const handleClose = (item) => {
     setAnchorEl(null);
+    getRelated(item);
   };
 
   return (
@@ -33,9 +34,9 @@ const Categories = ({ categories }) => {
           'aria-labelledby': 'basic-button',
         }}
       >
-        {categories.map((content, index) => (
+        {categories?.map((content, index) => (
           <MenuItem
-            onClick={handleClose}
+            onClick={() => handleClose(content.strCategory)}
             key={`${index + content.strCategory}`}
           >
             {content.strCategory}

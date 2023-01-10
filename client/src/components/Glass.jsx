@@ -3,14 +3,15 @@ import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 
-const Glass = ({ glass }) => {
+const Glass = ({ glass, getRelated }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
-  const handleClose = () => {
+  const handleClose = (item) => {
     setAnchorEl(null);
+    getRelated(item);
   };
 
   return (
@@ -33,9 +34,9 @@ const Glass = ({ glass }) => {
           'aria-labelledby': 'basic-button',
         }}
       >
-        {glass.map((type, index) => (
+        {glass?.map((type, index) => (
           <MenuItem
-            onClick={handleClose}
+            onClick={() => handleClose(type.strGlass)}
             key={`${index + type.strGlass}`}
           >
             {type.strGlass}

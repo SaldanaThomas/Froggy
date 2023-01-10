@@ -3,14 +3,15 @@ import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 
-const Alcoholic = ({ alcoholic }) => {
+const Alcoholic = ({ alcoholic, getRelated }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
-  const handleClose = () => {
+  const handleClose = (item) => {
     setAnchorEl(null);
+    getRelated(item);
   };
 
   return (
@@ -33,9 +34,9 @@ const Alcoholic = ({ alcoholic }) => {
           'aria-labelledby': 'basic-button',
         }}
       >
-        {alcoholic.map((content, index) => (
+        {alcoholic?.map((content, index) => (
           <MenuItem
-            onClick={handleClose}
+            onClick={() => handleClose(content.strAlcoholic)}
             key={`${index + content.strAlcoholic}`}
           >
             {content.strAlcoholic}

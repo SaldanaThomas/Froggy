@@ -3,14 +3,15 @@ import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 
-const Ingredients = ({ ingredients }) => {
+const Ingredients = ({ ingredients, getRelated }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
-  const handleClose = () => {
+  const handleClose = (item) => {
     setAnchorEl(null);
+    getRelated(item);
   };
 
   return (
@@ -33,9 +34,9 @@ const Ingredients = ({ ingredients }) => {
           'aria-labelledby': 'basic-button',
         }}
       >
-        {ingredients.map((filter, index) => (
+        {ingredients?.map((filter, index) => (
           <MenuItem
-            onClick={handleClose}
+            onClick={() => handleClose(filter.strIngredient1)}
             key={`${index + filter.strIngredient1}`}
           >
             {filter.strIngredient1}

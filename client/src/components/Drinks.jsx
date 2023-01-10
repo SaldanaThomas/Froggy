@@ -11,11 +11,9 @@ const Drinks = ({ drink, viewDrink }) => {
     <Paper>
       <div onClick={handleClick}>
         <div>{drink.strDrink}</div>
-        <img src={drink.strDrinkThumb + '/preview'} alt="drink" />
+        <img src={`${drink.strDrinkThumb}/preview`} alt="drink" />
       </div>
-      <Button className="CheckButton">
-        Check it out!
-      </Button>
+      <Button className="CheckButton">Check it out!</Button>
     </Paper>
   );
 };
