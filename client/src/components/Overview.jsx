@@ -9,7 +9,6 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
 const Overview = ({ drink }) => {
-  console.log(drink);
   return (
     <div>
       <div>{drink.strDrink}</div>
