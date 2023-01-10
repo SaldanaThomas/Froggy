@@ -51,26 +51,12 @@ function App() {
 
   return (
     <div>
-      <div>
-        <h1>Froggy Cocktails</h1>
-        <h3>Categories</h3>
-        <select>
-          {categories.map((category, index) => <Categories filter={category} key={index} />)}
-        </select>
-        <h3>Ingredients</h3>
-        <select>
-          {ingredients.map((ingredient, index) => <Ingredients filter={ingredient} key={index} />)}
-        </select>
-        <h3>Alcoholic</h3>
-        <select>
-          {alcoholic.map((content, index) => <Alcoholic filter={content} key={index} />)}
-        </select>
-        <h3>Glass</h3>
-      </div>
-      <select>
-        {glass.map((type, index) => <Glass filter={type} key={index} />)}
-      </select>
-      {popularDrinks.length && <Overview drink={currentDrink} />}
+      <h1>Froggy Cocktails</h1>
+      <Categories categories={categories} />
+      <Ingredients ingredients={ingredients} />
+      <Alcoholic alcoholic={alcoholic} />
+      <Glass glass={glass} />
+      <Overview drink={currentDrink} />
       <h2>Popular Drinks</h2>
       <Carousel>
         {popularDrinks.map((drink, index) => (

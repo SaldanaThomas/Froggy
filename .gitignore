@@ -24,14 +24,6 @@ node_modules
 Icon
 
 .env
-
-
-client/dist/
-/coverage
-/spec/coverage
-
+client/dist/main.js
+client/dist/index.html
 .eslintrc.js
-
-/backup
-
-/performance

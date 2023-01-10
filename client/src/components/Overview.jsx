@@ -116,7 +116,7 @@ const Overview = ({ drink }) => {
           </TableBody>
         </Table>
       </TableContainer>
-      <div>{`TAGS: ${drink.strTags}`}</div>
+      <div>{drink.strTags ? `TAGS: ${drink.strTags}` : null}</div>
     </div>
   );
 };

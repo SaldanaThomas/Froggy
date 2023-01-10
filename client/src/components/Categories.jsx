@@ -1,10 +1,48 @@
 import React from 'react';
+import Button from '@mui/material/Button';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
 
-const Categories = ({ filter }) => {
+const Categories = ({ categories }) => {
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
   return (
-    <option>
-      {filter.strCategory}
-    </option>
+    <div>
+      <Button
+        id="basic-button"
+        aria-controls={open ? 'basic-menu' : undefined}
+        aria-haspopup="true"
+        aria-expanded={open ? 'true' : undefined}
+        onClick={handleClick}
+      >
+        Categories
+      </Button>
+      <Menu
+        id="basic-menu"
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+        MenuListProps={{
+          'aria-labelledby': 'basic-button',
+        }}
+      >
+        {categories.map((content, index) => (
+          <MenuItem
+            onClick={handleClose}
+            key={`${index + content.strCategory}`}
+          >
+            {content.strCategory}
+          </MenuItem>
+        ))}
+      </Menu>
+    </div>
   );
 };
 
