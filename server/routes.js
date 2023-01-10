@@ -2,20 +2,22 @@ const router = require('express').Router();
 const controllers = require('./controllers.js');
 
 router.get('/searchByName', controllers.searchByName);
-router.get('/searchByIngredient', controllers.searchByIngredient);
-router.get('/lookUpRandom', controllers.lookUpRandom);
-router.get('/lookUpCocktailByID', controllers.lookUpCocktailByID);
-router.get('/lookUpIngredientByID', controllers.lookUpIngredientByID);
-router.get('/lookUpRandomSelection', controllers.lookUpRandomSelection);
-router.get('/filterCategory', controllers.filterCategory);
-router.get('/filterAlcoholic', controllers.filterAlcoholic);
-router.get('/filterGlass', controllers.filterGlass);
+router.get('/searchByFirstLetter', controllers.searchByFirstLetter);
+router.get('/searchByIngredientName', controllers.searchByIngredientName);
+router.get('/searchByID', controllers.searchByID);
+router.get('/searchByIngredientID', controllers.searchByIngredientID);
+router.get('/searchIngredient', controllers.searchIngredient);
+
+router.get('/randomCocktail', controllers.randomCocktail);
+router.get('/randomCocktails', controllers.randomCocktails);
+router.get('/popularCocktails', controllers.popularCocktails);
+router.get('/latestCocktails', controllers.latestCocktails);
+
 router.get('/filterMultiIngredient', controllers.filterMultiIngredient);
-router.get('/listIngredients', controllers.listIngredients);
-router.get('/listAlcoholic', controllers.listAlcoholic);
-router.get('/listGlass', controllers.listGlass);
+router.get('/filterAlcoholic', controllers.filterAlcoholic);
+router.get('/filterCategory', controllers.filterCategory);
+router.get('/filterGlass', controllers.filterGlass);
+
 router.get('/listCategories', controllers.listCategories);
-router.get('/listPopularCocktails', controllers.listPopularCocktails);
-router.get('/listLatestCocktails', controllers.listLatestCocktails);
 
 module.exports = router;
