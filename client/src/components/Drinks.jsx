@@ -1,13 +1,16 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { Paper, Button } from '@mui/material';
 
-function Drinks({ drink }) {
-
+const Drinks = ({ drink }) => {
   return (
-    <div>
+    <Paper>
       <div>{drink.strDrink}</div>
       <img src={drink.strDrinkThumb + '/preview'} alt="drink" />
-    </div>
+      <Button className="CheckButton">
+        Check it out!
+      </Button>
+    </Paper>
   );
-}
+};
 
 export default Drinks;

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Carousel from 'react-material-ui-carousel';
 import axios from 'axios';
 import Overview from './Overview.jsx';
 import Drinks from './Drinks.jsx';
@@ -42,32 +43,36 @@ function App() {
 
   return (
     <div>
-      <h1>Froggy Cocktails</h1>
-      <h3>Categories</h3>
-      <select>
-        {categories.map((category, index) => <Categories filter={category} key={index} />)}
-      </select>
-      <h3>Ingredients</h3>
-      <select>
-        {ingredients.map((ingredient, index) => <Ingredients filter={ingredient} key={index} />)}
-      </select>
-      <h3>Alcoholic</h3>
-      <select>
-        {alcoholic.map((content, index) => <Alcoholic filter={content} key={index} />)}
-      </select>
-      <h3>Glass</h3>
+      <div>
+        <h1>Froggy Cocktails</h1>
+        <h3>Categories</h3>
+        <select>
+          {categories.map((category, index) => <Categories filter={category} key={index} />)}
+        </select>
+        <h3>Ingredients</h3>
+        <select>
+          {ingredients.map((ingredient, index) => <Ingredients filter={ingredient} key={index} />)}
+        </select>
+        <h3>Alcoholic</h3>
+        <select>
+          {alcoholic.map((content, index) => <Alcoholic filter={content} key={index} />)}
+        </select>
+        <h3>Glass</h3>
+      </div>
       <select>
         {glass.map((type, index) => <Glass filter={type} key={index} />)}
       </select>
       {popularDrinks.length && <Overview drink={popularDrinks[0]} />}
       <h2>Popular Drinks</h2>
-      {popularDrinks.map((drink, index) => {
-        return index === 0 ? null : <Drinks drink={drink} key={index} />}
-      )}
-      <div>Other stuff</div>
+      <Carousel>
+        {popularDrinks.map((drink, index) => {
+          return index === 0 ? null : <Drinks drink={drink} key={index} />;
+        })}
+      </Carousel>
       <h2>Latest Drinks</h2>
-      {latestDrinks.map((drink, index) => <Drinks drink={drink} key={index} />)}
-      <div>Other stuff</div>
+      <Carousel>
+        {latestDrinks.map((drink, index) => <Drinks drink={drink} key={index} />)}
+      </Carousel>
     </div>
   );
 }
