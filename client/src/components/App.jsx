@@ -119,7 +119,6 @@ function App() {
   };
 
   const getDrinkByID = (drink) => {
-    console.log(drink.idDrink);
     axios
       .get(`/searchByID?i=${drink.idDrink}`)
       .then(({ data }) => {
@@ -148,20 +147,32 @@ function App() {
       {filteredDrinks.length ? (
         <Carousel>
           {filteredDrinks.map((drink, index) => (
-            <Drinks drink={drink} viewDrink={getDrinkByID} key={index} />
+            <Drinks
+              drink={drink}
+              viewDrink={getDrinkByID}
+              key={`${drink.strName + index}`}
+            />
           ))}
         </Carousel>
       ) : null}
       <h2>Popular Drinks</h2>
       <Carousel>
         {popularDrinks.map((drink, index) => (
-          <Drinks drink={drink} viewDrink={viewDrink} key={index} />
+          <Drinks
+            drink={drink}
+            viewDrink={viewDrink}
+            key={`${drink.strName + index}`}
+          />
         ))}
       </Carousel>
       <h2>Latest Drinks</h2>
       <Carousel>
         {latestDrinks.map((drink, index) => (
-          <Drinks drink={drink} viewDrink={viewDrink} key={index} />
+          <Drinks
+            drink={drink}
+            viewDrink={viewDrink}
+            key={`${drink.strName + index}`}
+          />
         ))}
       </Carousel>
     </div>

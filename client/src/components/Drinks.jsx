@@ -9,7 +9,12 @@ const Drinks = ({ drink, viewDrink }) => {
 
   return (
     <Paper>
-      <div onClick={handleClick}>
+      <div
+        role="button"
+        tabIndex={0}
+        onClick={handleClick}
+        onKeyPress={handleClick}
+      >
         <div>{drink.strDrink}</div>
         <img src={`${drink.strDrinkThumb}/preview`} alt="drink" />
       </div>
