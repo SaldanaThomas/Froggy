@@ -35,7 +35,7 @@ export default function AlertDialog({ item }) {
       {Object.keys(ingredient).length ? (
         <div>
           <Button
-            style={{ color: 'teal', border: 'solid 1px teal' }}
+            style={{ color: 'aquamarine', border: 'solid 1px aquamarine' }}
             variant="outlined"
             onClick={handleClickOpen}
           >

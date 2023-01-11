@@ -17,7 +17,7 @@ const Glass = ({ glass, getRelated }) => {
   return (
     <div>
       <Button
-        style={{ color: 'teal' }}
+        style={{ color: 'aquamarine' }}
         id="basic-button"
         aria-controls={open ? 'basic-menu' : undefined}
         aria-haspopup="true"

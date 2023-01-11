@@ -15,7 +15,8 @@ const Drinks = ({ drink, viewDrink }) => {
     <>
       <Paper
         style={{
-          backgroundColor: 'rgba(0,0,0,0.1)',
+          backgroundColor: '#281973EE',
+          color: '#e6b363',
           marginLeft: '25%',
           width: '50%',
           display: 'flex',
@@ -33,7 +34,11 @@ const Drinks = ({ drink, viewDrink }) => {
         </div>
       </Paper>
       <Button
-        style={{ alignText: 'center', color: 'teal', width: '100%' }}
+        style={{
+          alignText: 'center',
+          color: 'aquamarine',
+          width: '100%',
+        }}
         className="CheckButton"
         onClick={SearchProduct}
       >

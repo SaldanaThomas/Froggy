@@ -23,11 +23,18 @@ const Overview = ({ drink }) => {
           key={i}
           sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
         >
-          <TableCell align="center" component="th" scope="row">
+          <TableCell
+            align="center"
+            component="th"
+            scope="row"
+            style={{ color: '#e6b363' }}
+          >
             {drink[item]}
             <AlertDialog item={drink[item]} />
           </TableCell>
-          <TableCell align="center">{drink[quantity]}</TableCell>
+          <TableCell align="center" style={{ color: '#e6b363' }}>
+            {drink[quantity]}
+          </TableCell>
         </TableRow>
       );
     }
@@ -36,21 +43,49 @@ const Overview = ({ drink }) => {
 
   return (
     <div>
-      <h3 style={{ textAlign: 'center' }}>{drink.strDrink}</h3>
+      <h3
+        style={{
+          textAlign: 'center',
+          color: '#e6b363',
+          fontSize: 'xx-large',
+          '-webkit-text-stroke-width': '2px',
+          '-webkit-text-stroke-color': 'black',
+        }}
+      >
+        {`Current Drink: ${drink.strDrink}`}
+      </h3>
       <img
         style={{ marginLeft: '25%', marginRight: '25%', width: '50%' }}
         src={drink.strDrinkThumb}
         alt="drink"
       />
       <div
-        style={{ textAlign: 'center', marginLeft: '25%', marginRight: '25%' }}
+        style={{
+          textAlign: 'center',
+          color: '#e6b363',
+          backgroundColor: '#281973EE',
+          marginLeft: '25%',
+          marginRight: '25%',
+          marginBottom: '1%',
+          paddingLeft: '3px',
+          paddingRigjt: '3px',
+        }}
       >
-        {`Instructions: ${drink.strInstructions}`}
+        <h5
+          style={{
+            marginBottom: '-1px',
+            fontWeight: '900',
+            fontSize: 'x-large',
+          }}
+        >
+          Instructions:
+        </h5>
+        {` ${drink.strInstructions}`}
       </div>
       <TableContainer
         style={{
           width: '60%',
-          backgroundColor: 'rgba(200,200,200,0.6)',
+          backgroundColor: '#281973EE',
           marginLeft: '20%',
           marginRight: '20%',
         }}
@@ -60,14 +95,22 @@ const Overview = ({ drink }) => {
           <TableHead>
             <TableRow>
               <TableCell
-                style={{ color: 'teal', width: '50%' }}
+                style={{
+                  color: '#e6b363',
+                  width: '50%',
+                  fontWeight: '900',
+                }}
                 textalign="center"
                 align="center"
               >
                 Ingredients
               </TableCell>
               <TableCell
-                style={{ color: 'teal', width: '50%' }}
+                style={{
+                  color: '#e6b363',
+                  width: '50%',
+                  fontWeight: '900',
+                }}
                 textalign="center"
                 align="center"
               >
@@ -95,7 +138,15 @@ const Overview = ({ drink }) => {
           </TableBody>
         </Table>
       </TableContainer>
-      <div style={{ textAlign: 'center' }}>
+      <div
+        style={{
+          textAlign: 'center',
+          color: '#7c60bf',
+          backgroundColor: '#e6b36388',
+          marginLeft: '20%',
+          marginRight: '20%',
+        }}
+      >
         {drink.strTags ? `TAGS: ${drink.strTags.split(',').join(', ')}` : null}
       </div>
     </div>

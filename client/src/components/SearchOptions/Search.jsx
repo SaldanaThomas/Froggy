@@ -19,28 +19,34 @@ const Search = ({
   getByLetter,
 }) => {
   return (
-    <Box style={{ color: 'teal' }} sx={{ flexGrow: 1 }}>
-      <Grid container spacing={2}>
-        <Grid item xs={2}>
+    <Box style={{ color: 'aquamarine' }} sx={{ flexGrow: 1 }}>
+      <Grid container spacing={3}>
+        <Grid item xs={3}>
           <Categories categories={categories} getRelated={getCategoryRelated} />
         </Grid>
-        <Grid item xs={2}>
+        <Grid item xs={3}>
           <Ingredients
             ingredients={ingredients}
             getRelated={getIngredientRelated}
           />
         </Grid>
-        <Grid item xs={2}>
+        <Grid item xs={3}>
           <Alcoholic alcoholic={alcoholic} getRelated={getAlcoholRelated} />
         </Grid>
-        <Grid item xs={2}>
+        <Grid item xs={3}>
           <Glass glass={glass} getRelated={getGlassRelated} />
         </Grid>
-        <Grid item xs={2}>
+        <Grid item xs={3}>
           <Letter getRelated={getByLetter} />
         </Grid>
-        <Grid item xs={2}>
-          <div>The Pond</div>
+        <Grid item xs={3}>
+          <div>FEELING FROGGY</div>
+        </Grid>
+        <Grid item xs={3}>
+          <div>THE POND</div>
+        </Grid>
+        <Grid item xs={3}>
+          <div>SAVE THE FROGS</div>
         </Grid>
       </Grid>
     </Box>

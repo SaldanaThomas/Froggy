@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Carousel from 'react-material-ui-carousel';
 import axios from 'axios';
+import Background from './Background.jsx';
 import Login from './Login.jsx';
 import Search from './SearchOptions/Search.jsx';
 import Overview from './Overview.jsx';
@@ -170,6 +171,7 @@ function App() {
 
   return (
     <div>
+      <Background />
       <div
         style={{
           display: 'flex',
@@ -196,15 +198,32 @@ function App() {
         getByLetter={getByLetter}
       />
       <div style={{ display: 'flex', justifyContent: 'center' }}>
-        <input style={{ width: '20%' }} id="searchField" />
-        <button type="button" onClick={getByInput}>
+        <input
+          style={{ width: '20%', backgroundColor: '#e8ba7d' }}
+          id="searchField"
+        />
+        <button
+          type="button"
+          style={{ backgroundColor: '#e8ba7d' }}
+          onClick={getByInput}
+        >
           SEARCH FOR A DRINK
         </button>
       </div>
 
       <Overview drink={currentDrink} />
       {filteredDrinks.length ? (
-        <h2 style={{ textAlign: 'center' }}>{filter}</h2>
+        <h2
+          style={{
+            textAlign: 'center',
+            color: '#e6b363',
+            fontSize: 'xx-large',
+            '-webkit-text-stroke-width': '2px',
+            '-webkit-text-stroke-color': 'black',
+          }}
+        >
+          {filter}
+        </h2>
       ) : null}
       {filteredDrinks.length ? (
         <Carousel
@@ -224,7 +243,17 @@ function App() {
           ))}
         </Carousel>
       ) : null}
-      <h2 style={{ textAlign: 'center' }}>Popular Drinks</h2>
+      <h2
+        style={{
+          textAlign: 'center',
+          color: '#e6b363',
+          fontSize: 'xx-large',
+          '-webkit-text-stroke-width': '2px',
+          '-webkit-text-stroke-color': 'black',
+        }}
+      >
+        Popular Drinks
+      </h2>
       <Carousel navButtonsAlwaysVisible>
         {popularDrinks.map((drink, index) => (
           <Drinks
@@ -234,7 +263,17 @@ function App() {
           />
         ))}
       </Carousel>
-      <h2 style={{ textAlign: 'center' }}>Latest Drinks</h2>
+      <h2
+        style={{
+          textAlign: 'center',
+          color: '#e6b363',
+          fontSize: 'xx-large',
+          '-webkit-text-stroke-width': '2px',
+          '-webkit-text-stroke-color': 'black',
+        }}
+      >
+        Latest Drinks
+      </h2>
       <Carousel navButtonsAlwaysVisible>
         {latestDrinks.map((drink, index) => (
           <Drinks
