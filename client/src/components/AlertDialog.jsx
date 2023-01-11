@@ -32,7 +32,7 @@ export default function AlertDialog({ item }) {
 
   return (
     <div>
-      {Object.keys(ingredient).length ? (
+      {Object.keys(ingredient).length && ingredient.strDescription ? (
         <div>
           <Button
             style={{ color: 'aquamarine', border: 'solid 1px aquamarine' }}

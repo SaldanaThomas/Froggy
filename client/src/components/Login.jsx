@@ -7,14 +7,19 @@ const Login = () => {
   return (
     <div>
       <div>
-        <input id="user" />
-        Username
+        <input id="user" style={{ backgroundColor: '#e8ba7d' }} />
+        <div style={{ display: 'inline-block' }}>Username</div>
       </div>
       <div>
-        <input id="password" />
-        Password
+        <input id="password" style={{ backgroundColor: '#e8ba7d' }} />
+        <div style={{ display: 'inline-block' }}>Password</div>
       </div>
-      <button type="button">Login</button>
+      <button type="button" style={{ backgroundColor: '#e8ba7d' }}>
+        Login
+      </button>
+      <button type="button" style={{ backgroundColor: '#e8ba7d' }}>
+        Sign Up
+      </button>
     </div>
   );
 };
