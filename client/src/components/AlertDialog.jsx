@@ -19,7 +19,11 @@ export default function AlertDialog({ info }) {
 
   return (
     <div>
-      <Button variant="outlined" onClick={handleClickOpen}>
+      <Button
+        style={{ color: 'teal', border: 'solid 1px teal' }}
+        variant="outlined"
+        onClick={handleClickOpen}
+      >
         Description
       </Button>
       <Dialog

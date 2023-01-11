@@ -170,11 +170,20 @@ function App() {
 
   return (
     <div>
-      <h1>
-        Froggy Cocktails
-        <img src={logo} alt="logo" />
-      </h1>
-      <Login />
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignText: 'center',
+        }}
+      >
+        <h1>
+          Froggy Cocktails
+          <img src={logo} alt="logo" />
+        </h1>
+        <Login />
+      </div>
+
       <Search
         categories={categories}
         ingredients={ingredients}
@@ -186,14 +195,26 @@ function App() {
         getGlassRelated={getGlassRelated}
         getByLetter={getByLetter}
       />
-      <input id="searchField" />
-      <button type="button" onClick={getByInput}>
-        SEARCH FOR A DRINK
-      </button>
+      <div style={{ display: 'flex', justifyContent: 'center' }}>
+        <input style={{ width: '20%' }} id="searchField" />
+        <button type="button" onClick={getByInput}>
+          SEARCH FOR A DRINK
+        </button>
+      </div>
+
       <Overview drink={currentDrink} />
-      {filteredDrinks.length ? <h2>{filter}</h2> : null}
       {filteredDrinks.length ? (
-        <Carousel>
+        <h2 style={{ textAlign: 'center' }}>{filter}</h2>
+      ) : null}
+      {filteredDrinks.length ? (
+        <Carousel
+          navButtonsAlwaysVisible
+          navButtonsProps={{
+            style: {
+              navButtonsAlwaysVisible: true,
+            },
+          }}
+        >
           {filteredDrinks.map((drink, index) => (
             <Drinks
               drink={drink}
@@ -203,8 +224,8 @@ function App() {
           ))}
         </Carousel>
       ) : null}
-      <h2>Popular Drinks</h2>
-      <Carousel>
+      <h2 style={{ textAlign: 'center' }}>Popular Drinks</h2>
+      <Carousel navButtonsAlwaysVisible>
         {popularDrinks.map((drink, index) => (
           <Drinks
             drink={drink}
@@ -213,8 +234,8 @@ function App() {
           />
         ))}
       </Carousel>
-      <h2>Latest Drinks</h2>
-      <Carousel>
+      <h2 style={{ textAlign: 'center' }}>Latest Drinks</h2>
+      <Carousel navButtonsAlwaysVisible>
         {latestDrinks.map((drink, index) => (
           <Drinks
             drink={drink}

@@ -6,10 +6,14 @@ const Login = () => {
 
   return (
     <div>
-      <input id="user" />
-      User
-      <input id="password" />
-      Password
+      <div>
+        <input id="user" />
+        Username
+      </div>
+      <div>
+        <input id="password" />
+        Password
+      </div>
       <button type="button">Login</button>
     </div>
   );

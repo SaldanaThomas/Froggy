@@ -8,18 +8,33 @@ const Drinks = ({ drink, viewDrink }) => {
   };
 
   return (
-    <Paper>
-      <div
-        role="button"
-        tabIndex={0}
-        onClick={handleClick}
-        onKeyPress={handleClick}
+    <>
+      <Paper
+        style={{
+          backgroundColor: 'rgba(0,0,0,0.1)',
+          marginLeft: '25%',
+          width: '50%',
+          display: 'flex',
+          justifyContent: 'center',
+        }}
       >
-        <div>{drink.strDrink}</div>
-        <img src={`${drink.strDrinkThumb}/preview`} alt="drink" />
-      </div>
-      <Button className="CheckButton">Check it out!</Button>
-    </Paper>
+        <div
+          role="button"
+          tabIndex={0}
+          onClick={handleClick}
+          onKeyPress={handleClick}
+        >
+          <div style={{ textAlign: 'center' }}>{drink.strDrink}</div>
+          <img src={`${drink.strDrinkThumb}/preview`} alt="drink" />
+        </div>
+      </Paper>
+      <Button
+        style={{ alignText: 'center', color: 'teal', width: '100%' }}
+        className="CheckButton"
+      >
+        Check it out!
+      </Button>
+    </>
   );
 };
 

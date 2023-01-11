@@ -17,6 +17,7 @@ const Alcoholic = ({ alcoholic, getRelated }) => {
   return (
     <div>
       <Button
+        style={{ color: 'teal' }}
         id="basic-button"
         aria-controls={open ? 'basic-menu' : undefined}
         aria-haspopup="true"
