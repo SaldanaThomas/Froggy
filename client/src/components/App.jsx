@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import Carousel from 'react-material-ui-carousel';
 import axios from 'axios';
+import Search from './SearchOptions/Search.jsx';
 import Overview from './Overview.jsx';
 import Drinks from './Drinks.jsx';
-import Categories from './Categories.jsx';
-import Ingredients from './Ingredients.jsx';
-import Alcoholic from './Alcoholic.jsx';
-import Glass from './Glass.jsx';
+import logo from '../assets/Frog.png';
 
 function App() {
   const [currentDrink, setCurrentDrink] = useState({});
@@ -26,11 +24,11 @@ function App() {
       .catch((err) => console.error(err));
     axios
       .get('/popularCocktails')
-      .then(({ data }) => setPopularDrinks(data.drinks))
+      .then(({ data }) => setPopularDrinks(data.drinks.slice(0, 20)))
       .catch((err) => console.error(err));
     axios
       .get('/latestCocktails')
-      .then(({ data }) => setLatestDrinks(data.drinks))
+      .then(({ data }) => setLatestDrinks(data.drinks.slice(0, 20)))
       .catch((err) => console.error(err));
     axios
       .get('/listCategories?c=list')
@@ -54,14 +52,24 @@ function App() {
     setCurrentDrink(drink);
   };
 
+  const getDrinkByID = (id) => {
+    axios
+      .get(`/searchByID?i=${id}`)
+      .then(({ data }) => {
+        setCurrentDrink(data.drinks[0]);
+      })
+      .catch((err) => console.error(err));
+  };
+
   const getCategoryRelated = (criteria) => {
     if (typeof criteria === 'string') {
       axios
         .get(`/filterCategory?c=${criteria}`)
         .then(({ data }) => {
           if (Array.isArray(data.drinks)) {
+            getDrinkByID(data.drinks[0].idDrink);
             setFilter(`Category: ${criteria}`);
-            setFilteredDrinks(data.drinks);
+            setFilteredDrinks(data.drinks.slice(0, 20));
           } else {
             console.log('No Results');
           }
@@ -76,8 +84,9 @@ function App() {
         .get(`/filterMultiIngredient?i=${criteria}`)
         .then(({ data }) => {
           if (Array.isArray(data.drinks)) {
+            getDrinkByID(data.drinks[0].idDrink);
             setFilter(`Ingredient: ${criteria}`);
-            setFilteredDrinks(data.drinks);
+            setFilteredDrinks(data.drinks.slice(0, 20));
           } else {
             console.log('No Results');
           }
@@ -92,8 +101,9 @@ function App() {
         .get(`/filterAlcoholic?a=${criteria}`)
         .then(({ data }) => {
           if (Array.isArray(data.drinks)) {
+            getDrinkByID(data.drinks[0].idDrink);
             setFilter(`Alcohol: ${criteria}`);
-            setFilteredDrinks(data.drinks);
+            setFilteredDrinks(data.drinks.slice(0, 20));
           } else {
             console.log('No Results');
           }
@@ -108,8 +118,9 @@ function App() {
         .get(`/filterGlass?g=${criteria}`)
         .then(({ data }) => {
           if (Array.isArray(data.drinks)) {
+            getDrinkByID(data.drinks[0].idDrink);
             setFilter(`Glass Type: ${criteria}`);
-            setFilteredDrinks(data.drinks);
+            setFilteredDrinks(data.drinks.slice(0, 20));
           } else {
             console.log('No Results');
           }
@@ -118,12 +129,17 @@ function App() {
     }
   };
 
-  const getDrinkByID = (drink) => {
+  const getByLetter = (letter) => {
     axios
-      .get(`/searchByID?i=${drink.idDrink}`)
+      .get(`/searchByFirstLetter?f=${letter}`)
       .then(({ data }) => {
-        console.log(data);
-        setCurrentDrink(data.drinks[0]);
+        if (Array.isArray(data.drinks)) {
+          getDrinkByID(data.drinks[0].idDrink);
+          setFilter(`Starts With: "${letter.toUpperCase()}"`);
+          setFilteredDrinks(data.drinks.slice(0, 20));
+        } else {
+          console.log('No Results');
+        }
       })
       .catch((err) => console.error(err));
   };
@@ -134,14 +150,21 @@ function App() {
 
   return (
     <div>
-      <h1>Froggy Cocktails</h1>
-      <Categories categories={categories} getRelated={getCategoryRelated} />
-      <Ingredients
+      <h1>
+        Froggy Cocktails
+        <img src={logo} alt="logo" />
+      </h1>
+      <Search
+        categories={categories}
         ingredients={ingredients}
-        getRelated={getIngredientRelated}
+        alcoholic={alcoholic}
+        glass={glass}
+        getCategoryRelated={getCategoryRelated}
+        getIngredientRelated={getIngredientRelated}
+        getAlcoholRelated={getAlcoholRelated}
+        getGlassRelated={getGlassRelated}
+        getByLetter={getByLetter}
       />
-      <Alcoholic alcoholic={alcoholic} getRelated={getAlcoholRelated} />
-      <Glass glass={glass} getRelated={getGlassRelated} />
       <Overview drink={currentDrink} />
       {filteredDrinks.length ? <h2>{filter}</h2> : null}
       {filteredDrinks.length ? (

@@ -2,7 +2,7 @@ const router = require('express').Router();
 const controllers = require('./controllers.js');
 
 router.get('/searchByName', controllers.searchByName);
-router.get('/searchByFirstLetter', controllers.searchByFirstLetter);
+router.get('/searchByFirstLetter', controllers.searchByFirstLetter); //
 router.get('/searchByIngredientName', controllers.searchByIngredientName);
 router.get('/searchByID', controllers.searchByID); //
 router.get('/searchByIngredientID', controllers.searchByIngredientID);
