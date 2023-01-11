@@ -7,6 +7,10 @@ const Drinks = ({ drink, viewDrink }) => {
     viewDrink(drink);
   };
 
+  const SearchProduct = () => {
+    window.open(`http://www.google.com/search?q=${drink.strDrink}`);
+  };
+
   return (
     <>
       <Paper
@@ -31,6 +35,7 @@ const Drinks = ({ drink, viewDrink }) => {
       <Button
         style={{ alignText: 'center', color: 'teal', width: '100%' }}
         className="CheckButton"
+        onClick={SearchProduct}
       >
         Check it out!
       </Button>

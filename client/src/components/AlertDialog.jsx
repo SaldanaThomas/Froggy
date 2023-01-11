@@ -24,7 +24,6 @@ export default function AlertDialog({ item }) {
       axios
         .get(`/searchByIngredientName?i=${item}`)
         .then(({ data }) => {
-          console.log(data.ingredients[0]);
           setIngredient(data.ingredients[0]);
         })
         .catch((err) => console.error(err));
