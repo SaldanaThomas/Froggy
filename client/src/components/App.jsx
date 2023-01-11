@@ -52,10 +52,12 @@ function App() {
     setCurrentDrink(drink);
   };
 
-  const getDrinkByID = (id) => {
+  const getDrinkByID = (drink) => {
+    console.log('id:', drink.idDrink);
     axios
-      .get(`/searchByID?i=${id}`)
+      .get(`/searchByID?i=${drink.idDrink}`)
       .then(({ data }) => {
+        console.log('result: ', data.drinks);
         setCurrentDrink(data.drinks[0]);
       })
       .catch((err) => console.error(err));
@@ -67,7 +69,7 @@ function App() {
         .get(`/filterCategory?c=${criteria}`)
         .then(({ data }) => {
           if (Array.isArray(data.drinks)) {
-            getDrinkByID(data.drinks[0].idDrink);
+            getDrinkByID(data.drinks[0]);
             setFilter(`Category: ${criteria}`);
             setFilteredDrinks(data.drinks.slice(0, 20));
           } else {
@@ -84,7 +86,7 @@ function App() {
         .get(`/filterMultiIngredient?i=${criteria}`)
         .then(({ data }) => {
           if (Array.isArray(data.drinks)) {
-            getDrinkByID(data.drinks[0].idDrink);
+            getDrinkByID(data.drinks[0]);
             setFilter(`Ingredient: ${criteria}`);
             setFilteredDrinks(data.drinks.slice(0, 20));
           } else {
@@ -101,7 +103,7 @@ function App() {
         .get(`/filterAlcoholic?a=${criteria}`)
         .then(({ data }) => {
           if (Array.isArray(data.drinks)) {
-            getDrinkByID(data.drinks[0].idDrink);
+            getDrinkByID(data.drinks[0]);
             setFilter(`Alcohol: ${criteria}`);
             setFilteredDrinks(data.drinks.slice(0, 20));
           } else {
@@ -118,7 +120,7 @@ function App() {
         .get(`/filterGlass?g=${criteria}`)
         .then(({ data }) => {
           if (Array.isArray(data.drinks)) {
-            getDrinkByID(data.drinks[0].idDrink);
+            getDrinkByID(data.drinks[0]);
             setFilter(`Glass Type: ${criteria}`);
             setFilteredDrinks(data.drinks.slice(0, 20));
           } else {
@@ -134,7 +136,7 @@ function App() {
       .get(`/searchByFirstLetter?f=${letter}`)
       .then(({ data }) => {
         if (Array.isArray(data.drinks)) {
-          getDrinkByID(data.drinks[0].idDrink);
+          getDrinkByID(data.drinks[0]);
           setFilter(`Starts With: "${letter.toUpperCase()}"`);
           setFilteredDrinks(data.drinks.slice(0, 20));
         } else {
@@ -144,10 +146,30 @@ function App() {
       .catch((err) => console.error(err));
   };
 
+  const getByInput = () => {
+    event.preventDefault();
+    const input = document.getElementById('searchField').value;
+    if (input.length) {
+      axios
+        .get(`/searchByName?s=${input.toLowerCase()}`)
+        .then(({ data }) => {
+          if (Array.isArray(data.drinks)) {
+            getDrinkByID(data.drinks[0]);
+            setFilter(`Results for: "${input.toUpperCase()}"`);
+            setFilteredDrinks(data.drinks.slice(0, 20));
+          } else {
+            console.log('No Results');
+          }
+        })
+        .catch((err) => console.error(err));
+    }
+  };
+
   useEffect(() => {
     getDrinks();
   }, []);
 
+  // console.log(filteredDrinks);
   return (
     <div>
       <h1>
@@ -165,6 +187,10 @@ function App() {
         getGlassRelated={getGlassRelated}
         getByLetter={getByLetter}
       />
+      <input id="searchField" />
+      <button type="button" onClick={getByInput}>
+        SEARCH
+      </button>
       <Overview drink={currentDrink} />
       {filteredDrinks.length ? <h2>{filter}</h2> : null}
       {filteredDrinks.length ? (
