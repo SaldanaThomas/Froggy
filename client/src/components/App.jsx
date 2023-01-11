@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Carousel from 'react-material-ui-carousel';
 import axios from 'axios';
+import Login from './Login.jsx';
 import Search from './SearchOptions/Search.jsx';
 import Overview from './Overview.jsx';
 import Drinks from './Drinks.jsx';
@@ -53,11 +54,9 @@ function App() {
   };
 
   const getDrinkByID = (drink) => {
-    console.log('id:', drink.idDrink);
     axios
       .get(`/searchByID?i=${drink.idDrink}`)
       .then(({ data }) => {
-        console.log('result: ', data.drinks);
         setCurrentDrink(data.drinks[0]);
       })
       .catch((err) => console.error(err));
@@ -169,13 +168,13 @@ function App() {
     getDrinks();
   }, []);
 
-  // console.log(filteredDrinks);
   return (
     <div>
       <h1>
         Froggy Cocktails
         <img src={logo} alt="logo" />
       </h1>
+      <Login />
       <Search
         categories={categories}
         ingredients={ingredients}
@@ -189,7 +188,7 @@ function App() {
       />
       <input id="searchField" />
       <button type="button" onClick={getByInput}>
-        SEARCH
+        SEARCH FOR A DRINK
       </button>
       <Overview drink={currentDrink} />
       {filteredDrinks.length ? <h2>{filter}</h2> : null}

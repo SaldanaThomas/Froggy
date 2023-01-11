@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -6,8 +7,30 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import AlertDialog from './AlertDialog.jsx';
 
 const Overview = ({ drink }) => {
+  const [description, setDescription] = useState([]);
+
+  useEffect(() => {
+    setDescription([]);
+    if (drink.idDrink) {
+      for (let i = 1; i < 15; i += 1) {
+        const item = `strIngredient${i}`;
+        if (drink[item]) {
+          axios
+            .get(`/searchByIngredientName?i=${drink[item]}`)
+            .then(({ data }) => {
+              const temp = description;
+              temp[i - 1] = data.ingredients[0];
+              setDescription(temp);
+            })
+            .catch((err) => console.error(err));
+        }
+      }
+    }
+  }, [drink]);
+
   return (
     <div>
       <h3>{drink.strDrink}</h3>
@@ -29,6 +52,9 @@ const Overview = ({ drink }) => {
               >
                 <TableCell component="th" scope="row">
                   {drink.strIngredient1}
+                  {description[0] ? (
+                    <AlertDialog info={description[0]} />
+                  ) : null}
                 </TableCell>
                 <TableCell align="left">{drink.strMeasure1}</TableCell>
               </TableRow>
@@ -40,6 +66,9 @@ const Overview = ({ drink }) => {
               >
                 <TableCell component="th" scope="row">
                   {drink.strIngredient2}
+                  {description[1] ? (
+                    <AlertDialog info={description[1]} />
+                  ) : null}
                 </TableCell>
                 <TableCell align="left">{drink.strMeasure2}</TableCell>
               </TableRow>
@@ -51,6 +80,9 @@ const Overview = ({ drink }) => {
               >
                 <TableCell component="th" scope="row">
                   {drink.strIngredient3}
+                  {description[2] ? (
+                    <AlertDialog info={description[2]} />
+                  ) : null}
                 </TableCell>
                 <TableCell align="left">{drink.strMeasure3}</TableCell>
               </TableRow>
@@ -62,6 +94,9 @@ const Overview = ({ drink }) => {
               >
                 <TableCell component="th" scope="row">
                   {drink.strIngredient4}
+                  {description[3] ? (
+                    <AlertDialog info={description[3]} />
+                  ) : null}
                 </TableCell>
                 <TableCell align="left">{drink.strMeasure4}</TableCell>
               </TableRow>
@@ -73,6 +108,9 @@ const Overview = ({ drink }) => {
               >
                 <TableCell component="th" scope="row">
                   {drink.strIngredient5}
+                  {description[4] ? (
+                    <AlertDialog info={description[4]} />
+                  ) : null}
                 </TableCell>
                 <TableCell align="left">{drink.strMeasure5}</TableCell>
               </TableRow>
@@ -84,6 +122,9 @@ const Overview = ({ drink }) => {
               >
                 <TableCell component="th" scope="row">
                   {drink.strIngredient6}
+                  {description[5] ? (
+                    <AlertDialog info={description[5]} />
+                  ) : null}
                 </TableCell>
                 <TableCell align="left">{drink.strMeasure6}</TableCell>
               </TableRow>
@@ -95,6 +136,9 @@ const Overview = ({ drink }) => {
               >
                 <TableCell component="th" scope="row">
                   {drink.strIngredient7}
+                  {description[6] ? (
+                    <AlertDialog info={description[6]} />
+                  ) : null}
                 </TableCell>
                 <TableCell align="left">{drink.strMeasure7}</TableCell>
               </TableRow>
@@ -106,6 +150,9 @@ const Overview = ({ drink }) => {
               >
                 <TableCell component="th" scope="row">
                   {drink.strIngredient8}
+                  {description[7] ? (
+                    <AlertDialog info={description[7]} />
+                  ) : null}
                 </TableCell>
                 <TableCell align="left">{drink.strMeasure8}</TableCell>
               </TableRow>
@@ -117,6 +164,9 @@ const Overview = ({ drink }) => {
               >
                 <TableCell component="th" scope="row">
                   {drink.strIngredient9}
+                  {description[8] ? (
+                    <AlertDialog info={description[8]} />
+                  ) : null}
                 </TableCell>
                 <TableCell align="left">{drink.strMeasure9}</TableCell>
               </TableRow>
@@ -128,6 +178,9 @@ const Overview = ({ drink }) => {
               >
                 <TableCell component="th" scope="row">
                   {drink.strIngredient10}
+                  {description[9] ? (
+                    <AlertDialog info={description[9]} />
+                  ) : null}
                 </TableCell>
                 <TableCell align="left">{drink.strMeasure10}</TableCell>
               </TableRow>
@@ -139,6 +192,9 @@ const Overview = ({ drink }) => {
               >
                 <TableCell component="th" scope="row">
                   {drink.strIngredient11}
+                  {description[10] ? (
+                    <AlertDialog info={description[10]} />
+                  ) : null}
                 </TableCell>
                 <TableCell align="left">{drink.strMeasure11}</TableCell>
               </TableRow>
@@ -150,6 +206,9 @@ const Overview = ({ drink }) => {
               >
                 <TableCell component="th" scope="row">
                   {drink.strIngredient12}
+                  {description[11] ? (
+                    <AlertDialog info={description[11]} />
+                  ) : null}
                 </TableCell>
                 <TableCell align="left">{drink.strMeasure12}</TableCell>
               </TableRow>
@@ -161,6 +220,9 @@ const Overview = ({ drink }) => {
               >
                 <TableCell component="th" scope="row">
                   {drink.strIngredient13}
+                  {description[12] ? (
+                    <AlertDialog info={description[12]} />
+                  ) : null}
                 </TableCell>
                 <TableCell align="left">{drink.strMeasure13}</TableCell>
               </TableRow>
@@ -172,6 +234,9 @@ const Overview = ({ drink }) => {
               >
                 <TableCell component="th" scope="row">
                   {drink.strIngredient14}
+                  {description[13] ? (
+                    <AlertDialog info={description[13]} />
+                  ) : null}
                 </TableCell>
                 <TableCell align="left">{drink.strMeasure14}</TableCell>
               </TableRow>
@@ -183,6 +248,9 @@ const Overview = ({ drink }) => {
               >
                 <TableCell component="th" scope="row">
                   {drink.strIngredient15}
+                  {description[14] ? (
+                    <AlertDialog info={description[14]} />
+                  ) : null}
                 </TableCell>
                 <TableCell align="left">{drink.strMeasure15}</TableCell>
               </TableRow>
