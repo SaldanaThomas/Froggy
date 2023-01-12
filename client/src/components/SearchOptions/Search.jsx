@@ -6,6 +6,9 @@ import Ingredients from './Ingredients.jsx';
 import Alcoholic from './Alcoholic.jsx';
 import Glass from './Glass.jsx';
 import Letter from './Letter.jsx';
+import FeelingFroggy from './FeelingFroggy.jsx';
+import ThePond from './ThePond.jsx';
+import SaveTheFrogs from './SaveTheFrogs.jsx';
 
 const Search = ({
   categories,
@@ -25,64 +28,14 @@ const Search = ({
           <Categories categories={categories} getRelated={getCategoryRelated} />
         </Grid>
         <Grid item xs={3}>
-          <Ingredients
-            ingredients={ingredients}
-            getRelated={getIngredientRelated}
-          />
+          <Ingredients ingredients={ingredients} getRelated={getIngredientRelated} />
         </Grid>
-        <Grid item xs={3}>
-          <Alcoholic alcoholic={alcoholic} getRelated={getAlcoholRelated} />
-        </Grid>
-        <Grid item xs={3}>
-          <Glass glass={glass} getRelated={getGlassRelated} />
-        </Grid>
-        <Grid item xs={3}>
-          <Letter getRelated={getByLetter} />
-        </Grid>
-        <Grid item xs={3}>
-          <div
-            style={{
-              fontSize: '15px',
-              paddingTop: '10px',
-              paddingLeft: '6px',
-              cursor: 'pointer',
-            }}
-          >
-            FEELING FROGGY
-          </div>
-        </Grid>
-        <Grid item xs={3}>
-          <div
-            style={{
-              fontSize: '15px',
-              paddingTop: '10px',
-              paddingLeft: '6px',
-              cursor: 'pointer',
-            }}
-          >
-            THE POND
-          </div>
-        </Grid>
-        <Grid item xs={3}>
-          <div
-            role="button"
-            tabIndex={0}
-            style={{
-              fontSize: '15px',
-              paddingTop: '10px',
-              paddingLeft: '6px',
-              cursor: 'pointer',
-            }}
-            onClick={() => {
-              window.open('https://panamawildlife.org/amphibians/');
-            }}
-            onKeyPress={() => {
-              window.open('https://panamawildlife.org/amphibians/');
-            }}
-          >
-            SAVE THE FROGS
-          </div>
-        </Grid>
+        <Grid item xs={3}><Alcoholic alcoholic={alcoholic} getRelated={getAlcoholRelated} /></Grid>
+        <Grid item xs={3}><Glass glass={glass} getRelated={getGlassRelated} /></Grid>
+        <Grid item xs={3}><Letter getRelated={getByLetter} /></Grid>
+        <Grid item xs={3}><FeelingFroggy /></Grid>
+        <Grid item xs={3}><ThePond /></Grid>
+        <Grid item xs={3}><SaveTheFrogs /></Grid>
       </Grid>
     </Box>
   );
