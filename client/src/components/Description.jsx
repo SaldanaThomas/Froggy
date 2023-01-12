@@ -7,7 +7,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
-export default function AlertDialog({ item }) {
+export default function Description({ item }) {
   const [open, setOpen] = useState(false);
   const [ingredient, setIngredient] = useState({});
 

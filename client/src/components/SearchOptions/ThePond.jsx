@@ -2,6 +2,10 @@ import React from 'react';
 import Button from '@mui/material/Button';
 
 const ThePond = () => {
+  const handleClick = () => {
+    event.preventDefault();
+  };
+
   return (
     <div>
       <Button
@@ -10,7 +14,7 @@ const ThePond = () => {
         aria-controls={open ? 'basic-menu' : undefined}
         aria-haspopup="true"
         aria-expanded={open ? 'true' : undefined}
-        // onClick={handleClick}
+        onClick={handleClick}
       >
         The Pond
       </Button>

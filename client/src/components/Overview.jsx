@@ -7,7 +7,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import AlertDialog from './AlertDialog.jsx';
+import Description from './Description.jsx';
 import youtube from '../assets/YouTube.png';
 
 const Overview = ({
@@ -44,7 +44,7 @@ const Overview = ({
         <TableRow key={i} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
           <TableCell align="center" component="th" scope="row" style={{ color: '#e6b363' }}>
             {drink[item]}
-            <AlertDialog item={drink[item]} />
+            <Description item={drink[item]} />
           </TableCell>
           <TableCell align="center" style={{ color: '#e6b363' }}>{drink[quantity]}</TableCell>
         </TableRow>
@@ -65,25 +65,21 @@ const Overview = ({
   };
 
   const checkUserDrink = () => {
-    let found = false;
-    userDrinks.forEach((userDrink) => {
-      if (userDrink.idDrink === drink.idDrink) {
-        found = true;
+    for (let i = 0; i < userDrinks.length; i += 1) {
+      if (userDrinks[i].idDrink === drink.idDrink) {
+        return (
+          <div className="favorite" role="button" tabIndex={0} onClick={removeDrink} onKeyPress={removeDrink}>
+            {currentUser.length ? '♡' : null}
+            {checkVideo()}
+          </div>
+        );
       }
-    });
-    if (found) {
-      return (
-        <>
-          {checkVideo()}
-          <div className="favorite" role="button" tabIndex={0} onClick={removeDrink} onKeyPress={removeDrink}>{currentUser.length ? '♡' : null}</div>
-        </>
-      );
     }
     return (
-      <>
+      <div className="noFavorite" role="button" tabIndex={0} onClick={addDrink} onKeyPress={addDrink}>
+        {currentUser.length ? '♡' : null}
         {checkVideo()}
-        <div className="noFavorite" role="button" tabIndex={0} onClick={addDrink} onKeyPress={addDrink}>{currentUser.length ? '♡' : null}</div>
-      </>
+      </div>
     );
   };
 

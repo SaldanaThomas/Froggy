@@ -2,6 +2,10 @@ import React from 'react';
 import Button from '@mui/material/Button';
 
 const FeelingFroggy = () => {
+  const handleClick = () => {
+    event.preventDefault();
+  };
+
   return (
     <div>
       <Button
@@ -10,7 +14,7 @@ const FeelingFroggy = () => {
         aria-controls={open ? 'basic-menu' : undefined}
         aria-haspopup="true"
         aria-expanded={open ? 'true' : undefined}
-        // onClick={handleClick}
+        onClick={handleClick}
       >
         Feeling Froggy
       </Button>
