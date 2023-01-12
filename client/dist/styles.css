@@ -502,28 +502,34 @@ body {
 
 .youTube {
   background-color: transparent;
+  position: absolute;
+  margin-left: 3%;
+  margin-top: -5px;
   border: 0;
   padding: 0;
   float: right;
   padding-top: 2px;
+  margin-bottom: -10px;
 }
 
 .favorite {
   float: right;
+  position: absolute;
   color: red;
   background-color: white;
   font-weight: 700;
   font-size: small;
-  margin-top: 5px;
+  margin-bottom: -30px;
   padding: 0 2px;
 }
 
 .noFavorite {
   float: right;
+  position: absolute;
   font-weight: 700;
   font-size: small;
   background-color: white;
-  margin-top: 5px;
+  margin-bottom: -30px;
   padding: 0 2px;
 }
 
