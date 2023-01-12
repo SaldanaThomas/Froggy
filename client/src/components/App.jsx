@@ -22,7 +22,7 @@ function App() {
   const [glass, setGlass] = useState([]);
 
   const getUserLogin = (user, password) => {
-    axios.get('/user', { params: { user, password } })
+    axios.get('/userLogin', { params: { user, password } })
       .then(({ data }) => {
         if (Object.keys(data.drinks).length) {
           setUserDrinks(data.drinks);

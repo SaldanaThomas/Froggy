@@ -14,7 +14,9 @@ module.exports = {
   userLoginGet: (user, pass, callback) => {
     hashCode(pass, (hashedPassword) => {
       db.findOne({ user, password: hashedPassword }, (err, result) => {
-        result.password = '';
+        if (result) {
+          result.password = null;
+        }
         callback(err, result);
       });
     });
@@ -22,7 +24,9 @@ module.exports = {
 
   userGet: (user, callback) => {
     db.findOne({ user }, (err, result) => {
-      result.password = '';
+      if (result) {
+        result.password = null;
+      }
       callback(err, result);
     });
   },

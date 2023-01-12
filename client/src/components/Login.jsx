@@ -10,7 +10,6 @@ const Login = ({
   const getUser = () => {
     event.preventDefault();
     if (user.length && password.length) {
-      console.log(user, password);
       getUserLogin(user, password);
       setUser('');
       setPassword('');
