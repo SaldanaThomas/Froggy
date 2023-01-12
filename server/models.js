@@ -3,7 +3,7 @@ const db = require('./database.js');
 module.exports = {
   userGet: (data, callback) => {
     db.find({}, (err, result) => {
-      callback(err, result[0].drinks);
+      callback(err, result[0]);
     });
   },
 
@@ -14,7 +14,7 @@ module.exports = {
   },
 
   userPatch: (data, callback) => {
-    db.updateOne({ _id: data._id }, { $push: { drinks: data.drink } }).exec(
+    db.updateOne({ user: data.user }, { $push: { drinks: data.drink } }).exec(
       (err) => {
         callback(err);
       },
@@ -23,7 +23,7 @@ module.exports = {
 
   userDelete: (data, callback) => {
     db.update(
-      { _id: data._id },
+      { user: data.user },
       { $pull: { drinks: { idDrink: data.drink.idDrink } } },
     ).exec((err) => {
       callback(err);

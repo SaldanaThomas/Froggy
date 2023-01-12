@@ -3,8 +3,8 @@ const controllers = require('./controllers.js');
 
 router.get('/user', controllers.userGet); //
 router.post('/user', controllers.userPost);
-router.patch('/user', controllers.userPatch);
-router.delete('/user', controllers.userDelete);
+router.patch('/user', controllers.userPatch); //
+router.delete('/user', controllers.userDelete); //
 
 router.get('/searchByName', controllers.searchByName); //
 router.get('/searchByFirstLetter', controllers.searchByFirstLetter); //

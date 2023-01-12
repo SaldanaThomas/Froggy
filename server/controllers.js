@@ -38,7 +38,7 @@ module.exports = {
   },
 
   userDelete: (req, res) => {
-    models.userDelete(req.body, (err) => {
+    models.userDelete(req.body.drinkData, (err) => {
       if (err) {
         res.sendStatus(404);
       } else {

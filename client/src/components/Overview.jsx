@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -7,15 +8,39 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import AlertDialog from './AlertDialog.jsx';
-import youtube from '../assets/Youtube.png';
+import youtube from '../assets/YouTube.png';
 
-const Overview = ({ drink, userDrinks }) => {
+const Overview = ({
+  drink, userDrinks, currentUser, getUserDrinks,
+}) => {
   const [render, setRender] = useState(false);
   const maxIngredients = new Array(15).fill(0);
+  const drinkData = {
+    user: currentUser,
+    drink: {
+      idDrink: drink.idDrink,
+      strDrink: drink.strDrink,
+      strDrinkThumb: drink.strDrinkThumb,
+    },
+  };
 
   useEffect(() => {
     setRender(!render);
   }, [drink]);
+
+  const addDrink = () => {
+    console.log('add');
+    axios.patch('/user', drinkData)
+      .then(() => getUserDrinks())
+      .catch((err) => console.error(err));
+  };
+
+  const removeDrink = () => {
+    console.log('remove');
+    axios.delete('/user', { data: { drinkData } })
+      .then(() => getUserDrinks())
+      .catch((err) => console.error(err));
+  };
 
   const buildTableRow = (item, quantity, i) => {
     if (drink[item]) {
@@ -64,14 +89,14 @@ const Overview = ({ drink, userDrinks }) => {
       return (
         <>
           {checkVideo()}
-          <div className="favorite">♡</div>
+          <div className="favorite" role="button" tabIndex={0} onClick={removeDrink} onKeyPress={removeDrink}>♡</div>
         </>
       );
     }
     return (
       <>
         {checkVideo()}
-        <div className="noFavorite">♡</div>
+        <div className="noFavorite" role="button" tabIndex={0} onClick={addDrink} onKeyPress={addDrink}>♡</div>
       </>
     );
   };

@@ -10,6 +10,7 @@ import logo from '../assets/Frog.png';
 
 function App() {
   const [currentDrink, setCurrentDrink] = useState({});
+  const [currentUser, setCurrentUser] = useState('');
   const [userDrinks, setUserDrinks] = useState([]);
   const [filteredDrinks, setFilteredDrinks] = useState([]);
   const [filter, setFilter] = useState('');
@@ -20,15 +21,22 @@ function App() {
   const [alcoholic, setAlcoholic] = useState([]);
   const [glass, setGlass] = useState([]);
 
-  const getDrinks = () => {
+  const getUserDrinks = () => {
     axios
       .get('/user')
       .then(({ data }) => {
-        if (data.length) {
-          setUserDrinks(data);
+        if (Object.keys(data.drinks).length) {
+          setUserDrinks(data.drinks);
+        }
+        if (data.user) {
+          setCurrentUser(data.user);
         }
       })
       .catch((err) => console.error(err));
+  };
+
+  const getDrinks = () => {
+    getUserDrinks();
     axios
       .get('/randomCocktail')
       .then(({ data }) => setCurrentDrink(data.drinks[0]))
@@ -219,7 +227,12 @@ function App() {
           SEARCH FOR A DRINK
         </button>
       </div>
-      <Overview drink={currentDrink} userDrinks={userDrinks} />
+      <Overview
+        drink={currentDrink}
+        userDrinks={userDrinks}
+        currentUser={currentUser}
+        getUserDrinks={getUserDrinks}
+      />
       {(filteredDrinks.length && (
         <h2
           style={{
