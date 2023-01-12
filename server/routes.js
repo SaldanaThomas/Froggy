@@ -1,9 +1,14 @@
 const router = require('express').Router();
 const controllers = require('./controllers.js');
 
+router.get('/user', controllers.userGet); //
+router.post('/user', controllers.userPost);
+router.patch('/user', controllers.userPatch);
+router.delete('/user', controllers.userDelete);
+
 router.get('/searchByName', controllers.searchByName); //
 router.get('/searchByFirstLetter', controllers.searchByFirstLetter); //
-router.get('/searchByIngredientName', controllers.searchByIngredientName);
+router.get('/searchByIngredientName', controllers.searchByIngredientName); //
 router.get('/searchByID', controllers.searchByID); //
 router.get('/searchByIngredientID', controllers.searchByIngredientID);
 router.get('/searchIngredient', controllers.searchIngredient);

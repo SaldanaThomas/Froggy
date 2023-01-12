@@ -475,3 +475,81 @@ body {
 .delay-6 {
   animation-delay: 6s;
 }
+
+.currentDrinkText {
+  text-align: center;
+  color: #e6b363;
+  font-size: xx-large;
+  margin-bottom: 2px;
+  -webkit-text-stroke-width: 2px;
+  -webkit-text-stroke-color: black;
+}
+
+.imageIcons {
+  position: relative;
+  z-index: 2;
+  margin-left: 25%;
+  margin-right: 25%;
+  width: 50%;
+}
+
+.mainImage {
+  margin-left: 25%;
+  margin-right: 25%;
+  width: 50%;
+  height: 100%;
+}
+
+.youTube {
+  background-color: transparent;
+  border: 0;
+  padding: 0;
+  float: right;
+  padding-top: 2px;
+}
+
+.favorite {
+  float: right;
+  color: red;
+  background-color: white;
+  font-weight: 700;
+  font-size: small;
+  margin-top: 5px;
+  padding: 0 2px;
+}
+
+.noFavorite {
+  float: right;
+  font-weight: 700;
+  font-size: small;
+  background-color: white;
+  margin-top: 5px;
+  padding: 0 2px;
+}
+
+.instructionBox {
+  text-align: center;
+  color: #e6b363;
+  background-color: #281973EE;
+  margin-left: 25%;
+  margin-right: 25%;
+  margin-top: 1%;
+  margin-bottom: 1%;
+  padding-left: 3px;
+  padding-right: 3px;
+}
+
+.instructionHeader {
+  margin-bottom: -1px;
+  margin-top: -5px;
+  font-weight: 900;
+  font-size: x-large;
+}
+
+.tagsContainer {
+  text-align: center;
+  color: #7c60bf;
+  background-color: #e6b36388;
+  margin-left: 20%;
+  margin-right: 20%;
+}

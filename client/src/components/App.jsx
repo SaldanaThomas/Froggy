@@ -10,6 +10,7 @@ import logo from '../assets/Frog.png';
 
 function App() {
   const [currentDrink, setCurrentDrink] = useState({});
+  const [userDrinks, setUserDrinks] = useState([]);
   const [filteredDrinks, setFilteredDrinks] = useState([]);
   const [filter, setFilter] = useState('');
   const [popularDrinks, setPopularDrinks] = useState([]);
@@ -20,6 +21,14 @@ function App() {
   const [glass, setGlass] = useState([]);
 
   const getDrinks = () => {
+    axios
+      .get('/user')
+      .then(({ data }) => {
+        if (data.length) {
+          setUserDrinks(data);
+        }
+      })
+      .catch((err) => console.error(err));
     axios
       .get('/randomCocktail')
       .then(({ data }) => setCurrentDrink(data.drinks[0]))
@@ -182,7 +191,6 @@ function App() {
         <img src={logo} alt="logo" />
         <Login />
       </div>
-
       <Search
         categories={categories}
         ingredients={ingredients}
@@ -196,7 +204,11 @@ function App() {
       />
       <div style={{ display: 'flex', justifyContent: 'center' }}>
         <input
-          style={{ width: '20%', backgroundColor: '#e8ba7d' }}
+          style={{
+            width: '38%',
+            backgroundColor: '#e8ba7d',
+            paddingTop: '10px',
+          }}
           id="searchField"
         />
         <button
@@ -207,9 +219,8 @@ function App() {
           SEARCH FOR A DRINK
         </button>
       </div>
-
-      <Overview drink={currentDrink} />
-      {filteredDrinks.length ? (
+      <Overview drink={currentDrink} userDrinks={userDrinks} />
+      {(filteredDrinks.length && (
         <h2
           style={{
             textAlign: 'center',
@@ -222,8 +233,22 @@ function App() {
         >
           {filter}
         </h2>
-      ) : null}
-      {filteredDrinks.length ? (
+      )) || (
+      <h2
+        style={{
+          textAlign: 'center',
+          color: '#e6b363',
+          fontSize: 'xx-large',
+          marginBottom: '2px',
+          WebkitTextStrokeWidth: '2px',
+          WebkitTextStrokeColor: 'black',
+        }}
+      >
+        Your Drinks
+      </h2>
+      )
+        || null}
+      {(filteredDrinks.length && (
         <Carousel
           navButtonsAlwaysVisible
           navButtonsProps={{
@@ -240,7 +265,26 @@ function App() {
             />
           ))}
         </Carousel>
-      ) : null}
+      ))
+        || (userDrinks.length && (
+          <Carousel
+            navButtonsAlwaysVisible
+            navButtonsProps={{
+              style: {
+                navButtonsAlwaysVisible: true,
+              },
+            }}
+          >
+            {userDrinks.map((drink, index) => (
+              <Drinks
+                drink={drink}
+                viewDrink={getDrinkByID}
+                key={`${drink.strName + index}`}
+              />
+            ))}
+          </Carousel>
+        ))
+        || null}
       <h2
         style={{
           textAlign: 'center',

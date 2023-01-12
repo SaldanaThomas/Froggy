@@ -1,25 +1,32 @@
 const db = require('./database.js');
 
 module.exports = {
-  get: (callback) => {
+  userGet: (data, callback) => {
     db.find({}, (err, result) => {
-      callback(err, result);
+      callback(err, result[0].drinks);
     });
   },
 
-  post: (data, callback) => {
-    db.create(data, (err, result) => {
-      callback(err, result);
+  userPost: (data, callback) => {
+    db.create(data, (err) => {
+      callback(err);
     });
   },
 
-  patch: (data, callback) => {
-    db.updateOne({ _id: data._id }, data).exec((err, result) => {
-      callback(err, result);
-    });
+  userPatch: (data, callback) => {
+    db.updateOne({ _id: data._id }, { $push: { drinks: data.drink } }).exec(
+      (err) => {
+        callback(err);
+      },
+    );
   },
 
-  remove: (data, callback) => {
-    db.deleteOne(data).exec((err, result) => callback(err, result));
+  userDelete: (data, callback) => {
+    db.update(
+      { _id: data._id },
+      { $pull: { drinks: { idDrink: data.drink.idDrink } } },
+    ).exec((err) => {
+      callback(err);
+    });
   },
 };

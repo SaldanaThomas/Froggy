@@ -19,7 +19,10 @@ const Search = ({
   getByLetter,
 }) => {
   return (
-    <Box style={{ color: 'aquamarine' }} sx={{ flexGrow: 1 }}>
+    <Box
+      style={{ color: 'aquamarine', textAlign: 'center' }}
+      sx={{ flexGrow: 1 }}
+    >
       <Grid container spacing={3}>
         <Grid item xs={3}>
           <Categories categories={categories} getRelated={getCategoryRelated} />
@@ -41,21 +44,44 @@ const Search = ({
         </Grid>
         <Grid item xs={3}>
           <div
-            style={{ fontSize: '15px', paddingTop: '10px', paddingLeft: '6px' }}
+            style={{
+              fontSize: '15px',
+              paddingTop: '10px',
+              paddingLeft: '6px',
+              cursor: 'pointer',
+            }}
           >
             FEELING FROGGY
           </div>
         </Grid>
         <Grid item xs={3}>
           <div
-            style={{ fontSize: '15px', paddingTop: '10px', paddingLeft: '6px' }}
+            style={{
+              fontSize: '15px',
+              paddingTop: '10px',
+              paddingLeft: '6px',
+              cursor: 'pointer',
+            }}
           >
             THE POND
           </div>
         </Grid>
         <Grid item xs={3}>
           <div
-            style={{ fontSize: '15px', paddingTop: '10px', paddingLeft: '6px' }}
+            role="button"
+            tabIndex={0}
+            style={{
+              fontSize: '15px',
+              paddingTop: '10px',
+              paddingLeft: '6px',
+              cursor: 'pointer',
+            }}
+            onClick={() => {
+              window.open('https://panamawildlife.org/amphibians/');
+            }}
+            onKeyPress={() => {
+              window.open('https://panamawildlife.org/amphibians/');
+            }}
           >
             SAVE THE FROGS
           </div>

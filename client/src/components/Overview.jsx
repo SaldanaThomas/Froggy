@@ -7,8 +7,9 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import AlertDialog from './AlertDialog.jsx';
+import youtube from '../assets/Youtube.png';
 
-const Overview = ({ drink }) => {
+const Overview = ({ drink, userDrinks }) => {
   const [render, setRender] = useState(false);
   const maxIngredients = new Array(15).fill(0);
 
@@ -41,52 +42,51 @@ const Overview = ({ drink }) => {
     return null;
   };
 
+  const checkVideo = () => {
+    if (drink.strVideo) {
+      return (
+        <button className="youTube" type="button" onClick={() => window.open(drink.strVideo)}>
+          <img src={youtube} alt="YouTube Link" />
+        </button>
+      );
+    }
+    return null;
+  };
+
+  const checkUserDrink = () => {
+    let found = false;
+    userDrinks.forEach((userDrink) => {
+      if (userDrink.idDrink === drink.idDrink) {
+        found = true;
+      }
+    });
+    if (found) {
+      return (
+        <>
+          {checkVideo()}
+          <div className="favorite">♡</div>
+        </>
+      );
+    }
+    return (
+      <>
+        {checkVideo()}
+        <div className="noFavorite">♡</div>
+      </>
+    );
+  };
+
   return (
     <div>
-      <h3
-        style={{
-          textAlign: 'center',
-          color: '#e6b363',
-          fontSize: 'xx-large',
-          marginBottom: '2px',
-          WebkitTextStrokeWidth: '2px',
-          WebkitTextStrokeColor: 'black',
-        }}
-      >
-        {`Current Drink: ${drink.strDrink}`}
-      </h3>
-      <img
-        style={{ marginLeft: '25%', marginRight: '25%', width: '50%' }}
-        src={drink.strDrinkThumb}
-        alt="drink"
-      />
-      <div
-        style={{
-          textAlign: 'center',
-          color: '#e6b363',
-          backgroundColor: '#281973EE',
-          marginLeft: '25%',
-          marginRight: '25%',
-          marginTop: '1%',
-          marginBottom: '1%',
-          paddingLeft: '3px',
-          paddingRigjt: '3px',
-        }}
-      >
-        <h5
-          style={{
-            marginBottom: '-1px',
-            marginTop: '-5px',
-            fontWeight: '900',
-            fontSize: 'x-large',
-          }}
-        >
-          Instructions:
-        </h5>
+      <h3 className="currentDrinkText">{`Current Drink: ${drink.strDrink}`}</h3>
+      <div className="imageIcons">{checkUserDrink()}</div>
+      <img className="mainImage" src={drink.strDrinkThumb} alt="drink" />
+      <div className="instructionBox">
+        <h5 className="instructionHeader">Instructions:</h5>
         {` ${drink.strInstructions}`}
       </div>
       <TableContainer
-        style={{
+        sx={{
           width: '60%',
           backgroundColor: '#281973EE',
           marginLeft: '20%',
@@ -98,7 +98,7 @@ const Overview = ({ drink }) => {
           <TableHead>
             <TableRow>
               <TableCell
-                style={{
+                sx={{
                   color: '#e6b363',
                   width: '50%',
                   fontWeight: '900',
@@ -109,7 +109,7 @@ const Overview = ({ drink }) => {
                 Ingredients
               </TableCell>
               <TableCell
-                style={{
+                sx={{
                   color: '#e6b363',
                   width: '50%',
                   fontWeight: '900',
@@ -122,34 +122,22 @@ const Overview = ({ drink }) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {render &&
-              maxIngredients.map((item, index) =>
-                buildTableRow(
-                  `strIngredient${index + 1}`,
-                  `strMeasure${index + 1}`,
-                  index,
-                ),
-              )}
-            {!render &&
-              maxIngredients.map((item, index) =>
-                buildTableRow(
-                  `strIngredient${index + 1}`,
-                  `strMeasure${index + 1}`,
-                  index,
-                ),
-              )}
+            {render
+              && maxIngredients.map((item, index) => buildTableRow(
+                `strIngredient${index + 1}`,
+                `strMeasure${index + 1}`,
+                index,
+              ))}
+            {!render
+              && maxIngredients.map((item, index) => buildTableRow(
+                `strIngredient${index + 1}`,
+                `strMeasure${index + 1}`,
+                index,
+              ))}
           </TableBody>
         </Table>
       </TableContainer>
-      <div
-        style={{
-          textAlign: 'center',
-          color: '#7c60bf',
-          backgroundColor: '#e6b36388',
-          marginLeft: '20%',
-          marginRight: '20%',
-        }}
-      >
+      <div className="tagsContainer">
         {drink.strTags ? `TAGS: ${drink.strTags.split(',').join(', ')}` : null}
       </div>
     </div>

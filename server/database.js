@@ -1,14 +1,9 @@
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost/movies');
+mongoose.connect('mongodb://localhost/cocktails');
 
 const schema = mongoose.Schema({
-  title: String,
-  year: Number,
-  runTime: Number,
-  metaScore: Number,
-  imdbRating: Number,
-  watched: Boolean,
+  drinks: [{ idDrink: String, strDrink: String, strDrinkThumb: String }],
 });
 
-module.exports = mongoose.model('movie', schema);
+module.exports = mongoose.model('cocktails', schema);

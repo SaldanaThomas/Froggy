@@ -1,12 +1,52 @@
 require('dotenv').config();
 const axios = require('axios');
-// const models = require('./models.js');
+const models = require('./models.js');
 
 const options = {
   method: 'GET',
 };
 
 module.exports = {
+  userGet: (req, res) => {
+    models.userGet(req.body, (err, data) => {
+      if (err) {
+        res.sendStatus(404);
+      } else {
+        res.status(200).send(data);
+      }
+    });
+  },
+
+  userPost: (req, res) => {
+    models.userPost(req.body, (err) => {
+      if (err) {
+        res.sendStatus(404);
+      } else {
+        res.sendStatus(201);
+      }
+    });
+  },
+
+  userPatch: (req, res) => {
+    models.userPatch(req.body, (err) => {
+      if (err) {
+        res.sendStatus(404);
+      } else {
+        res.sendStatus(203);
+      }
+    });
+  },
+
+  userDelete: (req, res) => {
+    models.userDelete(req.body, (err) => {
+      if (err) {
+        res.sendStatus(404);
+      } else {
+        res.sendStatus(203);
+      }
+    });
+  },
+
   searchByName: (req, res) => {
     options.url = `${process.env.API_URL}search.php?${Object.keys(req.query)}=${
       req.query.s
