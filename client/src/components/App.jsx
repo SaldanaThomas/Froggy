@@ -179,10 +179,7 @@ function App() {
           alignText: 'center',
         }}
       >
-        <h1>
-          Froggy Cocktails
-          <img src={logo} alt="logo" />
-        </h1>
+        <img src={logo} alt="logo" />
         <Login />
       </div>
 
