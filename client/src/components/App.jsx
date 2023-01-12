@@ -215,8 +215,9 @@ function App() {
             textAlign: 'center',
             color: '#e6b363',
             fontSize: 'xx-large',
-            '-webkit-text-stroke-width': '2px',
-            '-webkit-text-stroke-color': 'black',
+            marginBottom: '2px',
+            WebkitTextStrokeWidth: '2px',
+            WebkitTextStrokeColor: 'black',
           }}
         >
           {filter}
@@ -245,8 +246,9 @@ function App() {
           textAlign: 'center',
           color: '#e6b363',
           fontSize: 'xx-large',
-          '-webkit-text-stroke-width': '2px',
-          '-webkit-text-stroke-color': 'black',
+          marginBottom: '2px',
+          WebkitTextStrokeWidth: '2px',
+          WebkitTextStrokeColor: 'black',
         }}
       >
         Popular Drinks
@@ -265,8 +267,9 @@ function App() {
           textAlign: 'center',
           color: '#e6b363',
           fontSize: 'xx-large',
-          '-webkit-text-stroke-width': '2px',
-          '-webkit-text-stroke-color': 'black',
+          marginBottom: '2px',
+          WebkitTextStrokeWidth: '2px',
+          WebkitTextStrokeColor: 'black',
         }}
       >
         Latest Drinks

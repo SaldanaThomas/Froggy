@@ -48,8 +48,9 @@ const Overview = ({ drink }) => {
           textAlign: 'center',
           color: '#e6b363',
           fontSize: 'xx-large',
-          '-webkit-text-stroke-width': '2px',
-          '-webkit-text-stroke-color': 'black',
+          marginBottom: '2px',
+          WebkitTextStrokeWidth: '2px',
+          WebkitTextStrokeColor: 'black',
         }}
       >
         {`Current Drink: ${drink.strDrink}`}
@@ -66,6 +67,7 @@ const Overview = ({ drink }) => {
           backgroundColor: '#281973EE',
           marginLeft: '25%',
           marginRight: '25%',
+          marginTop: '1%',
           marginBottom: '1%',
           paddingLeft: '3px',
           paddingRigjt: '3px',
@@ -74,6 +76,7 @@ const Overview = ({ drink }) => {
         <h5
           style={{
             marginBottom: '-1px',
+            marginTop: '-5px',
             fontWeight: '900',
             fontSize: 'x-large',
           }}

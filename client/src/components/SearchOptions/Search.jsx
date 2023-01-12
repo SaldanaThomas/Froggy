@@ -40,13 +40,25 @@ const Search = ({
           <Letter getRelated={getByLetter} />
         </Grid>
         <Grid item xs={3}>
-          <div>FEELING FROGGY</div>
+          <div
+            style={{ fontSize: '15px', paddingTop: '10px', paddingLeft: '6px' }}
+          >
+            FEELING FROGGY
+          </div>
         </Grid>
         <Grid item xs={3}>
-          <div>THE POND</div>
+          <div
+            style={{ fontSize: '15px', paddingTop: '10px', paddingLeft: '6px' }}
+          >
+            THE POND
+          </div>
         </Grid>
         <Grid item xs={3}>
-          <div>SAVE THE FROGS</div>
+          <div
+            style={{ fontSize: '15px', paddingTop: '10px', paddingLeft: '6px' }}
+          >
+            SAVE THE FROGS
+          </div>
         </Grid>
       </Grid>
     </Box>

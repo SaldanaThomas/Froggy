@@ -37,6 +37,7 @@ const Drinks = ({ drink, viewDrink }) => {
         style={{
           alignText: 'center',
           color: 'aquamarine',
+          padding: '0px',
           width: '100%',
         }}
         className="CheckButton"
