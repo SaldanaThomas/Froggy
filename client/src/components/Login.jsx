@@ -1,18 +1,30 @@
 import React from 'react';
 import axios from 'axios';
 
-const Login = ({ getUserDrinks }) => {
+const Login = ({
+  getUserDrinks, currentUser, setCurrentUser, setUserDrinks,
+}) => {
   const getUser = () => {
     event.preventDefault();
     getUserDrinks(document.getElementById('user').value);
+    document.getElementById('user').value = '';
   };
 
   const addUser = () => {
     event.preventDefault();
     const user = document.getElementById('user').value;
     axios.post('/user', { user, drinks: [] })
-      .then(() => getUser())
+      .then(() => {
+        document.getElementById('user').value = '';
+        getUser();
+      })
       .catch((err) => console.error(err));
+  };
+
+  const signOut = () => {
+    event.preventDefault();
+    setCurrentUser('');
+    setUserDrinks([]);
   };
 
   return (
@@ -28,9 +40,17 @@ const Login = ({ getUserDrinks }) => {
       <button type="button" onClick={getUser} style={{ backgroundColor: '#e8ba7d' }}>
         Login
       </button>
-      <button type="button" onClick={addUser} style={{ backgroundColor: '#e8ba7d' }}>
-        Sign Up
-      </button>
+
+      {currentUser.length ? (
+        <button type="button" onClick={signOut} style={{ backgroundColor: '#e8ba7d' }}>
+          Sign Out
+        </button>
+      ) : (
+        <button type="button" onClick={addUser} style={{ backgroundColor: '#e8ba7d' }}>
+          Sign Up
+        </button>
+      )}
+      {currentUser.length ? <div>{`Current User: ${currentUser}`}</div> : null}
     </div>
   );
 };

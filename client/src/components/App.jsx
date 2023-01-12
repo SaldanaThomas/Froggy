@@ -27,10 +27,10 @@ function App() {
       .then(({ data }) => {
         if (Object.keys(data.drinks).length) {
           setUserDrinks(data.drinks);
+        } else {
+          setUserDrinks([]);
         }
-        if (data.user) {
-          setCurrentUser(data.user);
-        }
+        setCurrentUser(data.user);
       })
       .catch((err) => console.error(err));
   };
@@ -185,21 +185,17 @@ function App() {
     getDrinks();
   }, []);
 
-  console.log(userDrinks);
-  console.log(currentUser);
-
   return (
     <div>
       <Background />
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignText: 'center',
-        }}
-      >
+      <div className="mainHeader">
         <img src={logo} alt="logo" />
-        <Login getUserDrinks={getUserDrinks} />
+        <Login
+          getUserDrinks={getUserDrinks}
+          currentUser={currentUser}
+          setCurrentUser={setCurrentUser}
+          setUserDrinks={setUserDrinks}
+        />
       </div>
       <Search
         categories={categories}
@@ -213,19 +209,8 @@ function App() {
         getByLetter={getByLetter}
       />
       <div style={{ display: 'flex', justifyContent: 'center' }}>
-        <input
-          style={{
-            width: '38%',
-            backgroundColor: '#e8ba7d',
-            paddingTop: '10px',
-          }}
-          id="searchField"
-        />
-        <button
-          type="button"
-          style={{ backgroundColor: '#e8ba7d' }}
-          onClick={getByInput}
-        >
+        <input id="searchField" />
+        <button className="searchFieldButton" type="button" onClick={getByInput}>
           SEARCH FOR A DRINK
         </button>
       </div>
@@ -236,31 +221,9 @@ function App() {
         getUserDrinks={getUserDrinks}
       />
       {(filteredDrinks.length && (
-        <h2
-          style={{
-            textAlign: 'center',
-            color: '#e6b363',
-            fontSize: 'xx-large',
-            marginBottom: '2px',
-            WebkitTextStrokeWidth: '2px',
-            WebkitTextStrokeColor: 'black',
-          }}
-        >
-          {filter}
-        </h2>
+        <h2 className="carouselHeader">{filter}</h2>
       )) || (userDrinks.length && (
-      <h2
-        style={{
-          textAlign: 'center',
-          color: '#e6b363',
-          fontSize: 'xx-large',
-          marginBottom: '2px',
-          WebkitTextStrokeWidth: '2px',
-          WebkitTextStrokeColor: 'black',
-        }}
-      >
-        Your Drinks
-      </h2>
+      <h2 className="carouselHeader">Your Drinks</h2>
       ))
         || null}
       {(filteredDrinks.length && (
@@ -300,18 +263,7 @@ function App() {
           </Carousel>
         ))
         || null}
-      <h2
-        style={{
-          textAlign: 'center',
-          color: '#e6b363',
-          fontSize: 'xx-large',
-          marginBottom: '2px',
-          WebkitTextStrokeWidth: '2px',
-          WebkitTextStrokeColor: 'black',
-        }}
-      >
-        Popular Drinks
-      </h2>
+      <h2 className="carouselHeader">Popular Drinks</h2>
       <Carousel navButtonsAlwaysVisible>
         {popularDrinks.map((drink, index) => (
           <Drinks
@@ -321,18 +273,7 @@ function App() {
           />
         ))}
       </Carousel>
-      <h2
-        style={{
-          textAlign: 'center',
-          color: '#e6b363',
-          fontSize: 'xx-large',
-          marginBottom: '2px',
-          WebkitTextStrokeWidth: '2px',
-          WebkitTextStrokeColor: 'black',
-        }}
-      >
-        Latest Drinks
-      </h2>
+      <h2 className="carouselHeader">Latest Drinks</h2>
       <Carousel navButtonsAlwaysVisible>
         {latestDrinks.map((drink, index) => (
           <Drinks

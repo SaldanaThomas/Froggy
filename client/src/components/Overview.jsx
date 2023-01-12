@@ -89,14 +89,14 @@ const Overview = ({
       return (
         <>
           {checkVideo()}
-          <div className="favorite" role="button" tabIndex={0} onClick={removeDrink} onKeyPress={removeDrink}>♡</div>
+          <div className="favorite" role="button" tabIndex={0} onClick={removeDrink} onKeyPress={removeDrink}>{currentUser.length ? '♡' : null}</div>
         </>
       );
     }
     return (
       <>
         {checkVideo()}
-        <div className="noFavorite" role="button" tabIndex={0} onClick={addDrink} onKeyPress={addDrink}>♡</div>
+        <div className="noFavorite" role="button" tabIndex={0} onClick={addDrink} onKeyPress={addDrink}>{currentUser.length ? '♡' : null}</div>
       </>
     );
   };

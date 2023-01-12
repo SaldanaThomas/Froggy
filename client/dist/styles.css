@@ -476,6 +476,30 @@ body {
   animation-delay: 6s;
 }
 
+.mainHeader {
+  display: flex;
+  justify-content: space-between;
+}
+
+#searchField {
+  width: 38%;
+  background-color: #e8ba7d;
+  padding-top: 10px;
+}
+
+.searchFieldButton {
+  background-color: #e8ba7d;
+}
+
+.carouselHeader {
+  color: #e6b363;
+  font-size: xx-large;
+  text-align: center;
+  margin-bottom: 2px;
+  -webkit-text-stroke-width: 2px;
+  -webkit-text-stroke-color: black;
+}
+
 .currentDrinkText {
   text-align: center;
   color: #e6b363;
