@@ -21,9 +21,9 @@ function App() {
   const [alcoholic, setAlcoholic] = useState([]);
   const [glass, setGlass] = useState([]);
 
-  const getUserDrinks = () => {
+  const getUserDrinks = (user) => {
     axios
-      .get('/user')
+      .get('/user', { params: { user } })
       .then(({ data }) => {
         if (Object.keys(data.drinks).length) {
           setUserDrinks(data.drinks);
@@ -36,7 +36,6 @@ function App() {
   };
 
   const getDrinks = () => {
-    getUserDrinks();
     axios
       .get('/randomCocktail')
       .then(({ data }) => setCurrentDrink(data.drinks[0]))
@@ -186,6 +185,9 @@ function App() {
     getDrinks();
   }, []);
 
+  console.log(userDrinks);
+  console.log(currentUser);
+
   return (
     <div>
       <Background />
@@ -197,7 +199,7 @@ function App() {
         }}
       >
         <img src={logo} alt="logo" />
-        <Login />
+        <Login getUserDrinks={getUserDrinks} />
       </div>
       <Search
         categories={categories}
@@ -246,7 +248,7 @@ function App() {
         >
           {filter}
         </h2>
-      )) || (
+      )) || (userDrinks.length && (
       <h2
         style={{
           textAlign: 'center',
@@ -259,7 +261,7 @@ function App() {
       >
         Your Drinks
       </h2>
-      )
+      ))
         || null}
       {(filteredDrinks.length && (
         <Carousel

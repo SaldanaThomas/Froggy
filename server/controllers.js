@@ -8,7 +8,7 @@ const options = {
 
 module.exports = {
   userGet: (req, res) => {
-    models.userGet(req.body, (err, data) => {
+    models.userGet(req.query.user, (err, data) => {
       if (err) {
         res.sendStatus(404);
       } else {

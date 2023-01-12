@@ -2,7 +2,7 @@ const router = require('express').Router();
 const controllers = require('./controllers.js');
 
 router.get('/user', controllers.userGet); //
-router.post('/user', controllers.userPost);
+router.post('/user', controllers.userPost); //
 router.patch('/user', controllers.userPatch); //
 router.delete('/user', controllers.userDelete); //
 

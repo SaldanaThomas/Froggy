@@ -2,8 +2,8 @@ const db = require('./database.js');
 
 module.exports = {
   userGet: (data, callback) => {
-    db.find({}, (err, result) => {
-      callback(err, result[0]);
+    db.findOne({ user: data }, (err, result) => {
+      callback(err, result);
     });
   },
 

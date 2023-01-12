@@ -31,14 +31,14 @@ const Overview = ({
   const addDrink = () => {
     console.log('add');
     axios.patch('/user', drinkData)
-      .then(() => getUserDrinks())
+      .then(() => getUserDrinks(currentUser))
       .catch((err) => console.error(err));
   };
 
   const removeDrink = () => {
     console.log('remove');
     axios.delete('/user', { data: { drinkData } })
-      .then(() => getUserDrinks())
+      .then(() => getUserDrinks(currentUser))
       .catch((err) => console.error(err));
   };
 

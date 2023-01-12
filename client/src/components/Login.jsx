@@ -1,8 +1,19 @@
-import React, { useState } from 'react';
+import React from 'react';
+import axios from 'axios';
 
-const Login = () => {
-  const [user, setUser] = useState('');
-  const [password, setPassword] = useState('');
+const Login = ({ getUserDrinks }) => {
+  const getUser = () => {
+    event.preventDefault();
+    getUserDrinks(document.getElementById('user').value);
+  };
+
+  const addUser = () => {
+    event.preventDefault();
+    const user = document.getElementById('user').value;
+    axios.post('/user', { user, drinks: [] })
+      .then(() => getUser())
+      .catch((err) => console.error(err));
+  };
 
   return (
     <div>
@@ -14,10 +25,10 @@ const Login = () => {
         <input id="password" style={{ backgroundColor: '#e8ba7d' }} />
         <div style={{ display: 'inline-block' }}>Password</div>
       </div>
-      <button type="button" style={{ backgroundColor: '#e8ba7d' }}>
+      <button type="button" onClick={getUser} style={{ backgroundColor: '#e8ba7d' }}>
         Login
       </button>
-      <button type="button" style={{ backgroundColor: '#e8ba7d' }}>
+      <button type="button" onClick={addUser} style={{ backgroundColor: '#e8ba7d' }}>
         Sign Up
       </button>
     </div>
