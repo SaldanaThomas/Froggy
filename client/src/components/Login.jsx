@@ -1,24 +1,35 @@
-import React from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 
 const Login = ({
-  getUserDrinks, currentUser, setCurrentUser, setUserDrinks,
+  getUserLogin, currentUser, setCurrentUser, setUserDrinks,
 }) => {
+  const [user, setUser] = useState('');
+  const [password, setPassword] = useState('');
+
   const getUser = () => {
     event.preventDefault();
-    getUserDrinks(document.getElementById('user').value);
-    document.getElementById('user').value = '';
+    if (user.length && password.length) {
+      console.log(user, password);
+      getUserLogin(user, password);
+      setUser('');
+      setPassword('');
+    }
   };
 
   const addUser = () => {
     event.preventDefault();
-    const user = document.getElementById('user').value;
-    axios.post('/user', { user, drinks: [] })
-      .then(() => {
-        document.getElementById('user').value = '';
-        getUser();
-      })
-      .catch((err) => console.error(err));
+    if (user.length && password.length) {
+      axios.post('/user', { user, password, drinks: [] })
+        .then(() => {
+          getUser();
+        })
+        .catch((err) => {
+          console.error(err);
+          setUser('');
+          setPassword('');
+        });
+    }
   };
 
   const signOut = () => {
@@ -30,11 +41,11 @@ const Login = ({
   return (
     <div>
       <div>
-        <input id="user" style={{ backgroundColor: '#e8ba7d' }} />
+        <input id="user" value={user} onChange={(e) => setUser(e.target.value)} style={{ backgroundColor: '#e8ba7d' }} />
         <div style={{ display: 'inline-block' }}>Username</div>
       </div>
       <div>
-        <input id="password" style={{ backgroundColor: '#e8ba7d' }} />
+        <input id="password" value={password} onChange={(e) => setPassword(e.target.value)} style={{ backgroundColor: '#e8ba7d', WebkitTextSecurity: 'disc' }} />
         <div style={{ display: 'inline-block' }}>Password</div>
       </div>
       <button type="button" onClick={getUser} style={{ backgroundColor: '#e8ba7d' }}>

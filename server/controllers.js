@@ -7,6 +7,16 @@ const options = {
 };
 
 module.exports = {
+  userLoginGet: (req, res) => {
+    models.userGet(req.query.user, req.query.password, (err, data) => {
+      if (err) {
+        res.sendStatus(404);
+      } else {
+        res.status(200).send(data);
+      }
+    });
+  },
+
   userGet: (req, res) => {
     models.userGet(req.query.user, (err, data) => {
       if (err) {
@@ -51,8 +61,7 @@ module.exports = {
     options.url = `${process.env.API_URL}search.php?${Object.keys(req.query)}=${
       req.query.s
     }`;
-    axios
-      .request(options)
+    axios.request(options)
       .then((response) => res.status(200).send(response.data))
       .catch(() => res.sendStatus(404));
   },
@@ -61,8 +70,7 @@ module.exports = {
     options.url = `${process.env.API_URL}search.php?${Object.keys(req.query)}=${
       req.query.f
     }`;
-    axios
-      .request(options)
+    axios.request(options)
       .then((response) => res.status(200).send(response.data))
       .catch(() => res.sendStatus(404));
   },
@@ -71,8 +79,7 @@ module.exports = {
     options.url = `${process.env.API_URL}search.php?${Object.keys(req.query)}=${
       req.query.i
     }`;
-    axios
-      .request(options)
+    axios.request(options)
       .then((response) => res.status(200).send(response.data))
       .catch(() => res.sendStatus(404));
   },
@@ -81,8 +88,7 @@ module.exports = {
     options.url = `${process.env.API_URL}lookup.php?${Object.keys(req.query)}=${
       req.query.i
     }`;
-    axios
-      .request(options)
+    axios.request(options)
       .then((response) => res.status(200).send(response.data))
       .catch(() => res.sendStatus(404));
   },
@@ -91,8 +97,7 @@ module.exports = {
     options.url = `${process.env.API_URL}lookup.php?${Object.keys(req.query)}=${
       req.query.iid
     }`;
-    axios
-      .request(options)
+    axios.request(options)
       .then((response) => res.status(200).send(response.data))
       .catch(() => res.sendStatus(404));
   },
@@ -101,40 +106,35 @@ module.exports = {
     options.url = `${process.env.API_URL}filter.php?${Object.keys(req.query)}=${
       req.query.i
     }`;
-    axios
-      .request(options)
+    axios.request(options)
       .then((response) => res.status(200).send(response.data))
       .catch(() => res.sendStatus(404));
   },
 
   randomCocktail: (req, res) => {
     options.url = `${process.env.API_URL}random.php`;
-    axios
-      .request(options)
+    axios.request(options)
       .then((response) => res.status(200).send(response.data))
       .catch(() => res.sendStatus(404));
   },
 
   randomCocktails: (req, res) => {
     options.url = `${process.env.API_URL}randomselection.php`;
-    axios
-      .request(options)
+    axios.request(options)
       .then((response) => res.status(200).send(response.data))
       .catch(() => res.sendStatus(404));
   },
 
   popularCocktails: (req, res) => {
     options.url = `${process.env.API_URL}popular.php`;
-    axios
-      .request(options)
+    axios.request(options)
       .then((response) => res.status(200).send(response.data))
       .catch(() => res.sendStatus(404));
   },
 
   latestCocktails: (req, res) => {
     options.url = `${process.env.API_URL}latest.php`;
-    axios
-      .request(options)
+    axios.request(options)
       .then((response) => res.status(200).send(response.data))
       .catch(() => res.sendStatus(404));
   },
@@ -143,8 +143,7 @@ module.exports = {
     options.url = `${process.env.API_URL}filter.php?${Object.keys(req.query)}=${
       req.query.i
     }`;
-    axios
-      .request(options)
+    axios.request(options)
       .then((response) => res.status(200).send(response.data))
       .catch(() => res.sendStatus(404));
   },
@@ -153,8 +152,7 @@ module.exports = {
     options.url = `${process.env.API_URL}filter.php?${Object.keys(req.query)}=${
       req.query.a
     }`;
-    axios
-      .request(options)
+    axios.request(options)
       .then((response) => res.status(200).send(response.data))
       .catch(() => res.sendStatus(404));
   },
@@ -163,8 +161,7 @@ module.exports = {
     options.url = `${process.env.API_URL}filter.php?${Object.keys(req.query)}=${
       req.query.c
     }`;
-    axios
-      .request(options)
+    axios.request(options)
       .then((response) => res.status(200).send(response.data))
       .catch(() => res.sendStatus(404));
   },
@@ -173,8 +170,7 @@ module.exports = {
     options.url = `${process.env.API_URL}filter.php?${Object.keys(req.query)}=${
       req.query.g
     }`;
-    axios
-      .request(options)
+    axios.request(options)
       .then((response) => res.status(200).send(response.data))
       .catch(() => res.sendStatus(404));
   },
@@ -183,8 +179,7 @@ module.exports = {
     options.url = `${process.env.API_URL}list.php?${Object.keys(
       req.query,
     )}=list`;
-    axios
-      .request(options)
+    axios.request(options)
       .then((response) => res.status(200).send(response.data))
       .catch(() => res.sendStatus(404));
   },

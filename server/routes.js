@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const controllers = require('./controllers.js');
 
+router.get('/userLogin', controllers.userLoginGet); //
 router.get('/user', controllers.userGet); //
 router.post('/user', controllers.userPost); //
 router.patch('/user', controllers.userPatch); //

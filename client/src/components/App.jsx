@@ -21,6 +21,19 @@ function App() {
   const [alcoholic, setAlcoholic] = useState([]);
   const [glass, setGlass] = useState([]);
 
+  const getUserLogin = (user, password) => {
+    axios.get('/user', { params: { user, password } })
+      .then(({ data }) => {
+        if (Object.keys(data.drinks).length) {
+          setUserDrinks(data.drinks);
+        } else {
+          setUserDrinks([]);
+        }
+        setCurrentUser(data.user);
+      })
+      .catch((err) => console.error(err));
+  };
+
   const getUserDrinks = (user) => {
     axios.get('/user', { params: { user } })
       .then(({ data }) => {
@@ -176,7 +189,7 @@ function App() {
       <div className="mainHeader">
         <img src={logo} alt="logo" />
         <Login
-          getUserDrinks={getUserDrinks}
+          getUserLogin={getUserLogin}
           currentUser={currentUser}
           setCurrentUser={setCurrentUser}
           setUserDrinks={setUserDrinks}
@@ -205,7 +218,9 @@ function App() {
         currentUser={currentUser}
         getUserDrinks={getUserDrinks}
       />
-      {(filteredDrinks.length && (<h2 className="carouselHeader">{filter}</h2>))
+      {(filteredDrinks.length && (
+      <h2 className="carouselHeader">{filter}</h2>
+      ))
         || (userDrinks.length && (<h2 className="carouselHeader">Your Drinks</h2>))
         || null}
       {(filteredDrinks.length && (
