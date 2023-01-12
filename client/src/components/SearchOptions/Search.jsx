@@ -19,10 +19,7 @@ const Search = ({
   getByLetter,
 }) => {
   return (
-    <Box
-      style={{ color: 'aquamarine', textAlign: 'center' }}
-      sx={{ flexGrow: 1 }}
-    >
+    <Box style={{ color: 'aquamarine', textAlign: 'center' }} sx={{ flexGrow: 1 }}>
       <Grid container spacing={3}>
         <Grid item xs={3}>
           <Categories categories={categories} getRelated={getCategoryRelated} />

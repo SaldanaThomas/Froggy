@@ -40,7 +40,6 @@ const Login = ({
       <button type="button" onClick={getUser} style={{ backgroundColor: '#e8ba7d' }}>
         Login
       </button>
-
       {currentUser.length ? (
         <button type="button" onClick={signOut} style={{ backgroundColor: '#e8ba7d' }}>
           Sign Out

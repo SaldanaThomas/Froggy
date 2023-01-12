@@ -24,19 +24,15 @@ const Overview = ({
     },
   };
 
-  useEffect(() => {
-    setRender(!render);
-  }, [drink]);
+  useEffect(() => setRender(!render), [drink]);
 
   const addDrink = () => {
-    console.log('add');
     axios.patch('/user', drinkData)
       .then(() => getUserDrinks(currentUser))
       .catch((err) => console.error(err));
   };
 
   const removeDrink = () => {
-    console.log('remove');
     axios.delete('/user', { data: { drinkData } })
       .then(() => getUserDrinks(currentUser))
       .catch((err) => console.error(err));
@@ -45,22 +41,12 @@ const Overview = ({
   const buildTableRow = (item, quantity, i) => {
     if (drink[item]) {
       return (
-        <TableRow
-          key={i}
-          sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-        >
-          <TableCell
-            align="center"
-            component="th"
-            scope="row"
-            style={{ color: '#e6b363' }}
-          >
+        <TableRow key={i} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+          <TableCell align="center" component="th" scope="row" style={{ color: '#e6b363' }}>
             {drink[item]}
             <AlertDialog item={drink[item]} />
           </TableCell>
-          <TableCell align="center" style={{ color: '#e6b363' }}>
-            {drink[quantity]}
-          </TableCell>
+          <TableCell align="center" style={{ color: '#e6b363' }}>{drink[quantity]}</TableCell>
         </TableRow>
       );
     }
@@ -123,22 +109,14 @@ const Overview = ({
           <TableHead>
             <TableRow>
               <TableCell
-                sx={{
-                  color: '#e6b363',
-                  width: '50%',
-                  fontWeight: '900',
-                }}
+                sx={{ color: '#e6b363', width: '50%', fontWeight: '900' }}
                 textalign="center"
                 align="center"
               >
                 Ingredients
               </TableCell>
               <TableCell
-                sx={{
-                  color: '#e6b363',
-                  width: '50%',
-                  fontWeight: '900',
-                }}
+                sx={{ color: '#e6b363', width: '50%', fontWeight: '900' }}
                 textalign="center"
                 align="center"
               >
@@ -147,18 +125,16 @@ const Overview = ({
             </TableRow>
           </TableHead>
           <TableBody>
-            {render
-              && maxIngredients.map((item, index) => buildTableRow(
-                `strIngredient${index + 1}`,
-                `strMeasure${index + 1}`,
-                index,
-              ))}
-            {!render
-              && maxIngredients.map((item, index) => buildTableRow(
-                `strIngredient${index + 1}`,
-                `strMeasure${index + 1}`,
-                index,
-              ))}
+            {render && maxIngredients.map((item, index) => buildTableRow(
+              `strIngredient${index + 1}`,
+              `strMeasure${index + 1}`,
+              index,
+            ))}
+            {!render && maxIngredients.map((item, index) => buildTableRow(
+              `strIngredient${index + 1}`,
+              `strMeasure${index + 1}`,
+              index,
+            ))}
           </TableBody>
         </Table>
       </TableContainer>

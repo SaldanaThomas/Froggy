@@ -6,9 +6,11 @@ import MenuItem from '@mui/material/MenuItem';
 const Ingredients = ({ ingredients, getRelated }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
+
   const handleClose = (item) => {
     setAnchorEl(null);
     getRelated(item);

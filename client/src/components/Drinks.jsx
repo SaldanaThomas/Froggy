@@ -23,12 +23,7 @@ const Drinks = ({ drink, viewDrink }) => {
           justifyContent: 'center',
         }}
       >
-        <div
-          role="button"
-          tabIndex={0}
-          onClick={handleClick}
-          onKeyPress={handleClick}
-        >
+        <div role="button" tabIndex={0} onClick={handleClick} onKeyPress={handleClick}>
           <div style={{ textAlign: 'center' }}>{drink.strDrink}</div>
           <img src={`${drink.strDrinkThumb}/preview`} alt="drink" />
         </div>

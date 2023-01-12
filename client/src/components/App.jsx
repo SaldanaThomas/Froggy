@@ -22,8 +22,7 @@ function App() {
   const [glass, setGlass] = useState([]);
 
   const getUserDrinks = (user) => {
-    axios
-      .get('/user', { params: { user } })
+    axios.get('/user', { params: { user } })
       .then(({ data }) => {
         if (Object.keys(data.drinks).length) {
           setUserDrinks(data.drinks);
@@ -36,32 +35,25 @@ function App() {
   };
 
   const getDrinks = () => {
-    axios
-      .get('/randomCocktail')
+    axios.get('/randomCocktail')
       .then(({ data }) => setCurrentDrink(data.drinks[0]))
       .catch((err) => console.error(err));
-    axios
-      .get('/popularCocktails')
+    axios.get('/popularCocktails')
       .then(({ data }) => setPopularDrinks(data.drinks.slice(0, 20)))
       .catch((err) => console.error(err));
-    axios
-      .get('/latestCocktails')
+    axios.get('/latestCocktails')
       .then(({ data }) => setLatestDrinks(data.drinks.slice(0, 20)))
       .catch((err) => console.error(err));
-    axios
-      .get('/listCategories?c=list')
+    axios.get('/listCategories?c=list')
       .then(({ data }) => setCategories(data.drinks))
       .catch((err) => console.error(err));
-    axios
-      .get('/listCategories?i=list')
+    axios.get('/listCategories?i=list')
       .then(({ data }) => setIngredients(data.drinks))
       .catch((err) => console.error(err));
-    axios
-      .get('/listCategories?a=list')
+    axios.get('/listCategories?a=list')
       .then(({ data }) => setAlcoholic(data.drinks))
       .catch((err) => console.error(err));
-    axios
-      .get('/listCategories?g=list')
+    axios.get('/listCategories?g=list')
       .then(({ data }) => setGlass(data.drinks))
       .catch((err) => console.error(err));
   };
@@ -71,8 +63,7 @@ function App() {
   };
 
   const getDrinkByID = (drink) => {
-    axios
-      .get(`/searchByID?i=${drink.idDrink}`)
+    axios.get(`/searchByID?i=${drink.idDrink}`)
       .then(({ data }) => {
         setCurrentDrink(data.drinks[0]);
       })
@@ -81,8 +72,7 @@ function App() {
 
   const getCategoryRelated = (criteria) => {
     if (typeof criteria === 'string') {
-      axios
-        .get(`/filterCategory?c=${criteria}`)
+      axios.get(`/filterCategory?c=${criteria}`)
         .then(({ data }) => {
           if (Array.isArray(data.drinks)) {
             getDrinkByID(data.drinks[0]);
@@ -98,8 +88,7 @@ function App() {
 
   const getIngredientRelated = (criteria) => {
     if (typeof criteria === 'string') {
-      axios
-        .get(`/filterMultiIngredient?i=${criteria}`)
+      axios.get(`/filterMultiIngredient?i=${criteria}`)
         .then(({ data }) => {
           if (Array.isArray(data.drinks)) {
             getDrinkByID(data.drinks[0]);
@@ -115,8 +104,7 @@ function App() {
 
   const getAlcoholRelated = (criteria) => {
     if (typeof criteria === 'string') {
-      axios
-        .get(`/filterAlcoholic?a=${criteria}`)
+      axios.get(`/filterAlcoholic?a=${criteria}`)
         .then(({ data }) => {
           if (Array.isArray(data.drinks)) {
             getDrinkByID(data.drinks[0]);
@@ -132,8 +120,7 @@ function App() {
 
   const getGlassRelated = (criteria) => {
     if (typeof criteria === 'string') {
-      axios
-        .get(`/filterGlass?g=${criteria}`)
+      axios.get(`/filterGlass?g=${criteria}`)
         .then(({ data }) => {
           if (Array.isArray(data.drinks)) {
             getDrinkByID(data.drinks[0]);
@@ -148,8 +135,7 @@ function App() {
   };
 
   const getByLetter = (letter) => {
-    axios
-      .get(`/searchByFirstLetter?f=${letter}`)
+    axios.get(`/searchByFirstLetter?f=${letter}`)
       .then(({ data }) => {
         if (Array.isArray(data.drinks)) {
           getDrinkByID(data.drinks[0]);
@@ -166,8 +152,7 @@ function App() {
     event.preventDefault();
     const input = document.getElementById('searchField').value;
     if (input.length) {
-      axios
-        .get(`/searchByName?s=${input.toLowerCase()}`)
+      axios.get(`/searchByName?s=${input.toLowerCase()}`)
         .then(({ data }) => {
           if (Array.isArray(data.drinks)) {
             getDrinkByID(data.drinks[0]);
@@ -220,67 +205,34 @@ function App() {
         currentUser={currentUser}
         getUserDrinks={getUserDrinks}
       />
-      {(filteredDrinks.length && (
-        <h2 className="carouselHeader">{filter}</h2>
-      )) || (userDrinks.length && (
-      <h2 className="carouselHeader">Your Drinks</h2>
-      ))
+      {(filteredDrinks.length && (<h2 className="carouselHeader">{filter}</h2>))
+        || (userDrinks.length && (<h2 className="carouselHeader">Your Drinks</h2>))
         || null}
       {(filteredDrinks.length && (
-        <Carousel
-          navButtonsAlwaysVisible
-          navButtonsProps={{
-            style: {
-              navButtonsAlwaysVisible: true,
-            },
-          }}
-        >
+        <Carousel navButtonsAlwaysInvisible>
           {filteredDrinks.map((drink, index) => (
-            <Drinks
-              drink={drink}
-              viewDrink={getDrinkByID}
-              key={`${drink.strName + index}`}
-            />
+            <Drinks drink={drink} viewDrink={getDrinkByID} key={`${drink.strName + index}`} />
           ))}
         </Carousel>
       ))
         || (userDrinks.length && (
-          <Carousel
-            navButtonsAlwaysVisible
-            navButtonsProps={{
-              style: {
-                navButtonsAlwaysVisible: true,
-              },
-            }}
-          >
+          <Carousel navButtonsAlwaysInvisible>
             {userDrinks.map((drink, index) => (
-              <Drinks
-                drink={drink}
-                viewDrink={getDrinkByID}
-                key={`${drink.strName + index}`}
-              />
+              <Drinks drink={drink} viewDrink={getDrinkByID} key={`${drink.strName + index}`} />
             ))}
           </Carousel>
         ))
         || null}
       <h2 className="carouselHeader">Popular Drinks</h2>
-      <Carousel navButtonsAlwaysVisible>
+      <Carousel navButtonsAlwaysInvisible>
         {popularDrinks.map((drink, index) => (
-          <Drinks
-            drink={drink}
-            viewDrink={viewDrink}
-            key={`${drink.strName + index}`}
-          />
+          <Drinks drink={drink} viewDrink={viewDrink} key={`${drink.strName + index}`} />
         ))}
       </Carousel>
       <h2 className="carouselHeader">Latest Drinks</h2>
-      <Carousel navButtonsAlwaysVisible>
+      <Carousel navButtonsAlwaysInvisible>
         {latestDrinks.map((drink, index) => (
-          <Drinks
-            drink={drink}
-            viewDrink={viewDrink}
-            key={`${drink.strName + index}`}
-          />
+          <Drinks drink={drink} viewDrink={viewDrink} key={`${drink.strName + index}`} />
         ))}
       </Carousel>
     </div>

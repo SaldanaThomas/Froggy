@@ -21,8 +21,7 @@ export default function AlertDialog({ item }) {
 
   useEffect(() => {
     if (item) {
-      axios
-        .get(`/searchByIngredientName?i=${item}`)
+      axios.get(`/searchByIngredientName?i=${item}`)
         .then(({ data }) => {
           setIngredient(data.ingredients[0]);
         })
