@@ -6,6 +6,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import Missing from '../assets/FrogWithSign.png';
 
 export default function Description({ item }) {
   const [open, setOpen] = useState(false);
@@ -29,6 +30,12 @@ export default function Description({ item }) {
     }
   }, []);
 
+  useEffect(() => {
+    ingredient.strType = ingredient.strType || <img src={Missing} alt="Detail Missing" />;
+    ingredient.strAlcohol = ingredient.strAlcohol || <img src={Missing} alt="Detail Missing" />;
+    ingredient.strABV = ingredient.strABV || <img src={Missing} alt="Detail Missing" />;
+  }, [ingredient]);
+
   return (
     <div>
       {Object.keys(ingredient).length && ingredient.strDescription ? (
@@ -47,9 +54,12 @@ export default function Description({ item }) {
             aria-describedby="alert-dialog-description"
           >
             <DialogTitle id="alert-dialog-title">
-              {`Type: ${ingredient.strType || 'N/A'}, Alcohol: ${
-                ingredient.strAlcohol || 'N/A'
-              }, ABV: ${ingredient.strABV || 'N/A'}`}
+              {'Type: '}
+              {ingredient.strType}
+              {', Content: '}
+              {ingredient.strAlcohol}
+              {', ABV: '}
+              {ingredient.strABV}
             </DialogTitle>
             <DialogContent>
               <DialogContentText id="alert-dialog-description">
