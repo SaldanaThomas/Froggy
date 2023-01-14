@@ -31,7 +31,7 @@ function App() {
         }
         setCurrentUser(data.user);
       })
-      .catch((err) => console.error(err));
+      .catch(() => window.alert('Invalid Login'));
   };
 
   const getUserDrinks = (user) => {
@@ -92,7 +92,7 @@ function App() {
             setFilter(`Category: ${criteria}`);
             setFilteredDrinks(data.drinks.slice(0, 20));
           } else {
-            console.log('No Results');
+            window.alert('No results found');
           }
         })
         .catch((err) => console.error(err));
@@ -108,7 +108,7 @@ function App() {
             setFilter(`Ingredient: ${criteria}`);
             setFilteredDrinks(data.drinks.slice(0, 20));
           } else {
-            console.log('No Results');
+            window.alert('No results found');
           }
         })
         .catch((err) => console.error(err));
@@ -124,7 +124,7 @@ function App() {
             setFilter(`Alcohol: ${criteria}`);
             setFilteredDrinks(data.drinks.slice(0, 20));
           } else {
-            console.log('No Results');
+            window.alert('No results found');
           }
         })
         .catch((err) => console.error(err));
@@ -140,7 +140,7 @@ function App() {
             setFilter(`Glass Type: ${criteria}`);
             setFilteredDrinks(data.drinks.slice(0, 20));
           } else {
-            console.log('No Results');
+            window.alert('No results found');
           }
         })
         .catch((err) => console.error(err));
@@ -155,7 +155,7 @@ function App() {
           setFilter(`Starts With: "${letter.toUpperCase()}"`);
           setFilteredDrinks(data.drinks.slice(0, 20));
         } else {
-          console.log('No Results');
+          window.alert('No results found');
         }
       })
       .catch((err) => console.error(err));
@@ -172,7 +172,7 @@ function App() {
             setFilter(`Results for: "${input.toUpperCase()}"`);
             setFilteredDrinks(data.drinks.slice(0, 20));
           } else {
-            console.log('No Results');
+            window.alert('No results found');
           }
         })
         .catch((err) => console.error(err));
