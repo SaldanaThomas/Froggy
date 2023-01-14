@@ -53,7 +53,12 @@ export default function Description({ item }) {
             aria-labelledby="alert-dialog-title"
             aria-describedby="alert-dialog-description"
           >
-            <DialogTitle id="alert-dialog-title">
+            <DialogTitle
+              id="alert-dialog-title"
+              style={{
+                backgroundColor: '#8aaabd', borderBottom: 'solid 1px', paddingBottom: '0', textAlign: 'center',
+              }}
+            >
               {'Type: '}
               {ingredient.strType}
               {', Content: '}
@@ -61,13 +66,13 @@ export default function Description({ item }) {
               {', ABV: '}
               {ingredient.strABV}
             </DialogTitle>
-            <DialogContent>
+            <DialogContent style={{ backgroundColor: '#8aaabd', paddingTop: '5px', paddingBottom: '2px' }}>
               <DialogContentText id="alert-dialog-description">
                 {ingredient.strDescription}
               </DialogContentText>
             </DialogContent>
-            <DialogActions>
-              <Button onClick={handleClose} autoFocus>
+            <DialogActions style={{ backgroundColor: '#8aaabd', borderTop: '1px solid' }}>
+              <Button style={{ color: 'aquamarine', border: '1px solid aquamarine' }} onClick={handleClose} autoFocus>
                 Close
               </Button>
             </DialogActions>

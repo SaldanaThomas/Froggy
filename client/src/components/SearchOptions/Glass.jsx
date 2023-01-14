@@ -13,7 +13,9 @@ const Glass = ({ glass, getRelated }) => {
 
   const handleClose = (item) => {
     setAnchorEl(null);
-    getRelated(item);
+    if (typeof item === 'string') {
+      getRelated(item);
+    }
   };
 
   return (
@@ -41,6 +43,7 @@ const Glass = ({ glass, getRelated }) => {
           <MenuItem
             onClick={() => handleClose(type.strGlass)}
             key={`${index + type.strGlass}`}
+            style={{ backgroundColor: '#8aaabd' }}
           >
             {type.strGlass}
           </MenuItem>

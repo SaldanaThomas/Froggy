@@ -13,7 +13,9 @@ const Ingredients = ({ ingredients, getRelated }) => {
 
   const handleClose = (item) => {
     setAnchorEl(null);
-    getRelated(item);
+    if (typeof item === 'string') {
+      getRelated(item);
+    }
   };
 
   return (
@@ -41,6 +43,7 @@ const Ingredients = ({ ingredients, getRelated }) => {
           <MenuItem
             onClick={() => handleClose(filter.strIngredient1)}
             key={`${index + filter.strIngredient1}`}
+            style={{ backgroundColor: '#8aaabd' }}
           >
             {filter.strIngredient1}
           </MenuItem>

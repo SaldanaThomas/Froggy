@@ -13,7 +13,9 @@ const Alcoholic = ({ alcoholic, getRelated }) => {
 
   const handleClose = (item) => {
     setAnchorEl(null);
-    getRelated(item);
+    if (typeof item === 'string') {
+      getRelated(item);
+    }
   };
 
   return (
@@ -41,6 +43,7 @@ const Alcoholic = ({ alcoholic, getRelated }) => {
           <MenuItem
             onClick={() => handleClose(content.strAlcoholic)}
             key={`${index + content.strAlcoholic}`}
+            style={{ backgroundColor: '#8aaabd' }}
           >
             {content.strAlcoholic}
           </MenuItem>

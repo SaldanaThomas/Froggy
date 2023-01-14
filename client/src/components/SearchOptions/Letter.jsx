@@ -14,7 +14,9 @@ const Letter = ({ getRelated }) => {
 
   const handleClose = (item) => {
     setAnchorEl(null);
-    getRelated(item);
+    if (typeof item === 'string') {
+      getRelated(item);
+    }
   };
 
   return (
@@ -39,7 +41,7 @@ const Letter = ({ getRelated }) => {
         }}
       >
         {letters?.map((letter) => (
-          <MenuItem onClick={() => handleClose(letter)} key={letter}>
+          <MenuItem onClick={() => handleClose(letter)} key={letter} style={{ backgroundColor: '#8aaabd' }}>
             {letter.toUpperCase()}
           </MenuItem>
         ))}

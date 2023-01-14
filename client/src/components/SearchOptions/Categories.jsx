@@ -13,7 +13,9 @@ const Categories = ({ categories, getRelated }) => {
 
   const handleClose = (item) => {
     setAnchorEl(null);
-    getRelated(item);
+    if (typeof item === 'string') {
+      getRelated(item);
+    }
   };
 
   return (
@@ -41,6 +43,7 @@ const Categories = ({ categories, getRelated }) => {
           <MenuItem
             onClick={() => handleClose(content.strCategory)}
             key={`${index + content.strCategory}`}
+            style={{ backgroundColor: '#8aaabd' }}
           >
             {content.strCategory}
           </MenuItem>

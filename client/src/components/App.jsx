@@ -164,6 +164,7 @@ function App() {
   const getByInput = () => {
     event.preventDefault();
     const input = document.getElementById('searchField').value;
+    document.getElementById('searchField').value = '';
     if (input.length) {
       axios.get(`/searchByName?s=${input.toLowerCase()}`)
         .then(({ data }) => {
