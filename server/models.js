@@ -1,24 +1,13 @@
+const sha256 = require('js-sha256');
 const db = require('./database.js');
-
-const hashCode = (str, cb) => {
-  let hash = 0;
-  for (let i = 0; i < str.length; i += 1) {
-    const chr = str.charCodeAt(i);
-    hash = (hash << 5) - hash + chr;
-    hash |= 0; // Convert to 32bit integer
-  }
-  cb(hash);
-};
 
 module.exports = {
   userLoginGet: (user, pass, callback) => {
-    hashCode(pass, (hashedPassword) => {
-      db.findOne({ user, password: hashedPassword }, (err, result) => {
-        if (result) {
-          result.password = null;
-        }
-        callback(err, result);
-      });
+    db.findOne({ user, password: sha256(pass) }, (err, result) => {
+      if (result) {
+        result.password = null;
+      }
+      callback(err, result);
     });
   },
 
@@ -32,10 +21,8 @@ module.exports = {
   },
 
   userPost: (data, callback) => {
-    hashCode(data.password, (hashedPassword) => {
-      data.password = hashedPassword;
-      db.create(data, (err) => callback(err));
-    });
+    data.password = sha256(data.password);
+    db.create(data, (err) => callback(err));
   },
 
   userPatch: (data, callback) => {

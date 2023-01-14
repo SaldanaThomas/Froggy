@@ -4,7 +4,7 @@ mongoose.connect('mongodb://localhost/cocktails');
 
 const schema = mongoose.Schema({
   user: { type: String, unique: true },
-  password: Number,
+  password: String,
   drinks: [{ idDrink: String, strDrink: String, strDrinkThumb: String }],
 });
 
