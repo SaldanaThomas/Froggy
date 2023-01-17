@@ -500,7 +500,7 @@ body {
   -webkit-text-stroke-color: black;
 }
 
-.currentDrinkText {
+#currentDrinkText {
   text-align: center;
   color: #e6b363;
   font-size: xx-large;

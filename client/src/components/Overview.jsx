@@ -38,6 +38,10 @@ const Overview = ({
       .catch((err) => console.error(err));
   };
 
+  const searchProduct = (ingredient) => {
+    window.open(`http://www.google.com/search?q=${ingredient}`);
+  };
+
   const buildTableRow = (item, quantity, i) => {
     if (drink[item]) {
       return (
@@ -45,6 +49,18 @@ const Overview = ({
           <TableCell align="center" component="th" scope="row" style={{ color: '#e6b363' }}>
             {drink[item]}
             <Description item={drink[item]} />
+          </TableCell>
+          <TableCell align="center" style={{ color: '#e6b363' }}>
+            <img
+              src={`http://www.thecocktaildb.com/images/ingredients/${drink[item]}-Small.png`}
+              width="50px"
+              height="50px"
+              alt="ingredient"
+              role="button"
+              tabIndex={0}
+              onClick={() => searchProduct(drink[item])}
+              onKeyPress={() => searchProduct(drink[item])}
+            />
           </TableCell>
           <TableCell align="center" style={{ color: '#e6b363' }}>{drink[quantity]}</TableCell>
         </TableRow>
@@ -85,7 +101,7 @@ const Overview = ({
 
   return (
     <div>
-      <h3 className="currentDrinkText">{`Current Drink: ${drink.strDrink}`}</h3>
+      <h3 id="currentDrinkText">{`Current Drink: ${drink.strDrink}`}</h3>
       <div className="imageIcons">{checkUserDrink()}</div>
       <img className="mainImage" src={drink.strDrinkThumb} alt="drink" />
       <div className="instructionBox">
@@ -105,14 +121,19 @@ const Overview = ({
           <TableHead>
             <TableRow>
               <TableCell
-                sx={{ color: '#e6b363', width: '50%', fontWeight: '900' }}
+                sx={{ color: '#e6b363', width: '40%', fontWeight: '900' }}
                 textalign="center"
                 align="center"
               >
                 Ingredients
               </TableCell>
               <TableCell
-                sx={{ color: '#e6b363', width: '50%', fontWeight: '900' }}
+                sx={{ color: '#e6b363', width: '20%', fontWeight: '900' }}
+                textalign="center"
+                align="center"
+              />
+              <TableCell
+                sx={{ color: '#e6b363', width: '40%', fontWeight: '900' }}
                 textalign="center"
                 align="center"
               >

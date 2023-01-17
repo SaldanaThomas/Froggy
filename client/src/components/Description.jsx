@@ -61,7 +61,7 @@ export default function Description({ item }) {
             >
               {'Type: '}
               {ingredient.strType}
-              {', Content: '}
+              {', Alcohol Content: '}
               {ingredient.strAlcohol}
               {', ABV: '}
               {ingredient.strABV}

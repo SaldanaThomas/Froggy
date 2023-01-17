@@ -183,4 +183,12 @@ module.exports = {
       .then((response) => res.status(200).send(response.data))
       .catch(() => res.sendStatus(404));
   },
+
+  getIngredientImage: (req, res) => {
+    options.url = `http://www.thecocktaildb.com/images/ingredients/${
+      req.query.i}-Small.png`;
+    axios.get('http://www.thecocktaildb.com/images/ingredients/gin-Small.png')
+      .then((response) => res.status(200).send(response.data))
+      .catch(() => res.sendStatus(404));
+  },
 };

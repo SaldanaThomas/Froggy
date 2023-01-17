@@ -26,4 +26,6 @@ router.get('/filterGlass', controllers.filterGlass); //
 
 router.get('/listCategories', controllers.listCategories); //
 
+router.get('/getIngredientImage', controllers.getIngredientImage); //
+
 module.exports = router;

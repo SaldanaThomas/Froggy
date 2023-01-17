@@ -4,10 +4,11 @@ import { Paper, Button } from '@mui/material';
 const Drinks = ({ drink, viewDrink }) => {
   const handleClick = (e) => {
     e.preventDefault();
+    window.scroll({ top: -Math.abs(document.body.scrollHeight), left: 0, behavior: 'smooth' });
     viewDrink(drink);
   };
 
-  const SearchProduct = () => {
+  const searchProduct = () => {
     window.open(`http://www.google.com/search?q=${drink.strDrink}`);
   };
 
@@ -36,7 +37,7 @@ const Drinks = ({ drink, viewDrink }) => {
           width: '100%',
         }}
         className="CheckButton"
-        onClick={SearchProduct}
+        onClick={searchProduct}
       >
         Check it out!
       </Button>
