@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Carousel from 'react-material-ui-carousel';
-import axios from 'axios';
+import requests from '../utility/requests.js';
 import Background from './Background.jsx';
 import Login from './Login.jsx';
 import Search from './SearchOptions/Search.jsx';
@@ -20,169 +20,66 @@ function App() {
   const [ingredients, setIngredients] = useState([]);
   const [alcoholic, setAlcoholic] = useState([]);
   const [glass, setGlass] = useState([]);
+  const [query, setQuery] = useState('');
 
-  const getUserLogin = (user, password) => {
-    axios.get('/userLogin', { params: { user, password } })
-      .then(({ data }) => {
-        if (Object.keys(data.drinks).length) {
-          setUserDrinks(data.drinks);
-        } else {
-          setUserDrinks([]);
-        }
-        setCurrentUser(data.user);
-      })
-      .catch(() => window.alert('Invalid Login'));
+  const updatePageInfo = (filterDetails, drinks) => {
+    if (drinks.length) {
+      requests.getDrinkByID(drinks[0], (drink) => {
+        setCurrentDrink(drink);
+        setFilter(filterDetails);
+        setFilteredDrinks(drinks);
+      });
+    } else {
+      window.alert('No results found');
+    }
   };
 
-  const getUserDrinks = (user) => {
-    axios.get('/user', { params: { user } })
-      .then(({ data }) => {
-        if (Object.keys(data.drinks).length) {
-          setUserDrinks(data.drinks);
-        } else {
-          setUserDrinks([]);
-        }
-        setCurrentUser(data.user);
-      })
-      .catch((err) => console.error(err));
+  const getUserDrinks = (username) => {
+    requests.getUserDrinks(username, (drinks) => setUserDrinks(drinks));
   };
 
   const getDrinks = () => {
-    axios.get('/randomCocktail')
-      .then(({ data }) => setCurrentDrink(data.drinks[0]))
-      .catch((err) => console.error(err));
-    axios.get('/popularCocktails')
-      .then(({ data }) => setPopularDrinks(data.drinks.slice(0, 20)))
-      .catch((err) => console.error(err));
-    axios.get('/latestCocktails')
-      .then(({ data }) => setLatestDrinks(data.drinks.slice(0, 20)))
-      .catch((err) => console.error(err));
-    axios.get('/listCategories?c=list')
-      .then(({ data }) => setCategories(data.drinks))
-      .catch((err) => console.error(err));
-    axios.get('/listCategories?i=list')
-      .then(({ data }) => setIngredients(data.drinks))
-      .catch((err) => console.error(err));
-    axios.get('/listCategories?a=list')
-      .then(({ data }) => setAlcoholic(data.drinks))
-      .catch((err) => console.error(err));
-    axios.get('/listCategories?g=list')
-      .then(({ data }) => setGlass(data.drinks))
-      .catch((err) => console.error(err));
+    requests.getRandomCocktail((drink) => setCurrentDrink(drink));
+    requests.getPopularCocktails((drinks) => setPopularDrinks(drinks));
+    requests.getLatestCocktails((drinks) => setLatestDrinks(drinks));
+    requests.getCategories((items) => setCategories(items));
+    requests.getIngredients((items) => setIngredients(items));
+    requests.getAlcoholContent((items) => setAlcoholic(items));
+    requests.getGlassType((items) => setGlass(items));
   };
 
-  const viewDrink = (drink) => {
-    setCurrentDrink(drink);
+  const viewDrink = (drink) => setCurrentDrink(drink);
+
+  const getDrinkByID = (item) => requests.getDrinkByID(item, (drink) => setCurrentDrink(drink));
+
+  const searchCategory = (criteria) => {
+    requests.searchCategory(criteria, (drinks) => updatePageInfo(`Category: ${criteria}`, drinks));
   };
 
-  const getDrinkByID = (drink) => {
-    axios.get(`/searchByID?i=${drink.idDrink}`)
-      .then(({ data }) => {
-        setCurrentDrink(data.drinks[0]);
-      })
-      .catch((err) => console.error(err));
+  const searchIngredient = (criteria) => {
+    requests.searchIngredient(criteria, (drinks) => updatePageInfo(`Ingredient: ${criteria}`, drinks));
   };
 
-  const getCategoryRelated = (criteria) => {
-    if (typeof criteria === 'string') {
-      axios.get(`/filterCategory?c=${criteria}`)
-        .then(({ data }) => {
-          if (Array.isArray(data.drinks)) {
-            getDrinkByID(data.drinks[0]);
-            setFilter(`Category: ${criteria}`);
-            setFilteredDrinks(data.drinks.slice(0, 20));
-          } else {
-            window.alert('No results found');
-          }
-        })
-        .catch((err) => console.error(err));
+  const searchAlcoholContent = (criteria) => {
+    requests.searchAlcoholContent(criteria, (drinks) => updatePageInfo(`Alcohol: ${criteria}`, drinks));
+  };
+
+  const searchGlassType = (criteria) => {
+    requests.searchGlassType(criteria, (drinks) => updatePageInfo(`Glass Type: ${criteria}`, drinks));
+  };
+
+  const searchLetter = (letter) => {
+    requests.searchLetter(letter, (drinks) => updatePageInfo(`Starts With: "${letter.toUpperCase()}"`, drinks));
+  };
+
+  const searchQuery = () => {
+    if (query) {
+      requests.searchQuery(query.toLowerCase(), (drinks) => updatePageInfo(`Results for: "${query.toUpperCase()}"`, drinks));
+      setQuery('');
     }
   };
 
-  const getIngredientRelated = (criteria) => {
-    if (typeof criteria === 'string') {
-      axios.get(`/filterMultiIngredient?i=${criteria}`)
-        .then(({ data }) => {
-          if (Array.isArray(data.drinks)) {
-            getDrinkByID(data.drinks[0]);
-            setFilter(`Ingredient: ${criteria}`);
-            setFilteredDrinks(data.drinks.slice(0, 20));
-          } else {
-            window.alert('No results found');
-          }
-        })
-        .catch((err) => console.error(err));
-    }
-  };
-
-  const getAlcoholRelated = (criteria) => {
-    if (typeof criteria === 'string') {
-      axios.get(`/filterAlcoholic?a=${criteria}`)
-        .then(({ data }) => {
-          if (Array.isArray(data.drinks)) {
-            getDrinkByID(data.drinks[0]);
-            setFilter(`Alcohol: ${criteria}`);
-            setFilteredDrinks(data.drinks.slice(0, 20));
-          } else {
-            window.alert('No results found');
-          }
-        })
-        .catch((err) => console.error(err));
-    }
-  };
-
-  const getGlassRelated = (criteria) => {
-    if (typeof criteria === 'string') {
-      axios.get(`/filterGlass?g=${criteria}`)
-        .then(({ data }) => {
-          if (Array.isArray(data.drinks)) {
-            getDrinkByID(data.drinks[0]);
-            setFilter(`Glass Type: ${criteria}`);
-            setFilteredDrinks(data.drinks.slice(0, 20));
-          } else {
-            window.alert('No results found');
-          }
-        })
-        .catch((err) => console.error(err));
-    }
-  };
-
-  const getByLetter = (letter) => {
-    axios.get(`/searchByFirstLetter?f=${letter}`)
-      .then(({ data }) => {
-        if (Array.isArray(data.drinks)) {
-          getDrinkByID(data.drinks[0]);
-          setFilter(`Starts With: "${letter.toUpperCase()}"`);
-          setFilteredDrinks(data.drinks.slice(0, 20));
-        } else {
-          window.alert('No results found');
-        }
-      })
-      .catch((err) => console.error(err));
-  };
-
-  const getByInput = () => {
-    event.preventDefault();
-    const input = document.getElementById('searchField').value;
-    document.getElementById('searchField').value = '';
-    if (input.length) {
-      axios.get(`/searchByName?s=${input.toLowerCase()}`)
-        .then(({ data }) => {
-          if (Array.isArray(data.drinks)) {
-            getDrinkByID(data.drinks[0]);
-            setFilter(`Results for: "${input.toUpperCase()}"`);
-            setFilteredDrinks(data.drinks.slice(0, 20));
-          } else {
-            window.alert('No results found');
-          }
-        })
-        .catch((err) => console.error(err));
-    }
-  };
-
-  useEffect(() => {
-    getDrinks();
-  }, []);
+  useEffect(() => getDrinks(), []);
 
   return (
     <div>
@@ -190,7 +87,6 @@ function App() {
       <div className="mainHeader">
         <img src={logo} alt="logo" />
         <Login
-          getUserLogin={getUserLogin}
           currentUser={currentUser}
           setCurrentUser={setCurrentUser}
           setUserDrinks={setUserDrinks}
@@ -201,15 +97,15 @@ function App() {
         ingredients={ingredients}
         alcoholic={alcoholic}
         glass={glass}
-        getCategoryRelated={getCategoryRelated}
-        getIngredientRelated={getIngredientRelated}
-        getAlcoholRelated={getAlcoholRelated}
-        getGlassRelated={getGlassRelated}
-        getByLetter={getByLetter}
+        searchCategory={searchCategory}
+        searchIngredient={searchIngredient}
+        searchAlcoholContent={searchAlcoholContent}
+        searchGlassType={searchGlassType}
+        searchLetter={searchLetter}
       />
       <div style={{ display: 'flex', justifyContent: 'center' }}>
-        <input id="searchField" />
-        <button className="searchFieldButton" type="button" onClick={getByInput}>
+        <input id="searchField" value={query} onChange={(e) => setQuery(e.target.value)} />
+        <button className="searchFieldButton" type="button" onClick={searchQuery}>
           SEARCH FOR A DRINK
         </button>
       </div>

@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Categories from './Categories.jsx';
 import Ingredients from './Ingredients.jsx';
-import Alcoholic from './Alcoholic.jsx';
+import Alcohol from './Alcohol.jsx';
 import Glass from './Glass.jsx';
 import Letter from './Letter.jsx';
 import FeelingFroggy from './FeelingFroggy.jsx';
@@ -15,24 +15,24 @@ const Search = ({
   ingredients,
   alcoholic,
   glass,
-  getCategoryRelated,
-  getIngredientRelated,
-  getAlcoholRelated,
-  getGlassRelated,
-  getByLetter,
+  searchCategory,
+  searchIngredient,
+  searchAlcoholContent,
+  searchGlassType,
+  searchLetter,
 }) => {
   return (
     <Box style={{ color: 'aquamarine', textAlign: 'center' }} sx={{ flexGrow: 1 }}>
       <Grid container spacing={3}>
         <Grid item xs={3}>
-          <Categories categories={categories} getRelated={getCategoryRelated} />
+          <Categories categories={categories} getRelated={searchCategory} />
         </Grid>
         <Grid item xs={3}>
-          <Ingredients ingredients={ingredients} getRelated={getIngredientRelated} />
+          <Ingredients ingredients={ingredients} getRelated={searchIngredient} />
         </Grid>
-        <Grid item xs={3}><Alcoholic alcoholic={alcoholic} getRelated={getAlcoholRelated} /></Grid>
-        <Grid item xs={3}><Glass glass={glass} getRelated={getGlassRelated} /></Grid>
-        <Grid item xs={3}><Letter getRelated={getByLetter} /></Grid>
+        <Grid item xs={3}><Alcohol alcoholic={alcoholic} getRelated={searchAlcoholContent} /></Grid>
+        <Grid item xs={3}><Glass glass={glass} getRelated={searchGlassType} /></Grid>
+        <Grid item xs={3}><Letter getRelated={searchLetter} /></Grid>
         <Grid item xs={3}><FeelingFroggy /></Grid>
         <Grid item xs={3}><ThePond /></Grid>
         <Grid item xs={3}><SaveTheFrogs /></Grid>

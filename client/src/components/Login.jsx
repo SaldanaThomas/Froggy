@@ -1,45 +1,45 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import requests from '../utility/requests.js';
 
 const Login = ({
-  getUserLogin, currentUser, setCurrentUser, setUserDrinks,
+  currentUser, setCurrentUser, setUserDrinks,
 }) => {
-  const [user, setUser] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
   const getUser = () => {
-    event.preventDefault();
-    if (user.length && password.length) {
-      getUserLogin(user, password);
-      setUser('');
+    if (username && password) {
+      requests.getUserLogin(username, password, (user, drinks) => {
+        setCurrentUser(user);
+        setUserDrinks(drinks);
+      });
+      setUsername('');
       setPassword('');
     }
   };
 
   const addUser = () => {
-    event.preventDefault();
-    if (user.length && password.length) {
-      axios.post('/user', { user, password, drinks: [] })
-        .then(() => {
+    if (username && password) {
+      requests.addUser(username, password, (success) => {
+        if (success) {
           getUser();
-        })
-        .catch(() => {
+        } else {
           window.alert('Username already taken');
-          setUser('');
+          setUsername('');
           setPassword('');
-        });
+        }
+      });
     }
   };
 
   const signOut = () => {
-    event.preventDefault();
     setCurrentUser('');
     setUserDrinks([]);
   };
 
   return (
     <div>
-      {currentUser.length
+      {currentUser
         ? (
           <div>
             {`Current User: ${currentUser}  `}
@@ -49,7 +49,7 @@ const Login = ({
         : (
           <>
             <div>
-              <input id="user" value={user} onChange={(e) => setUser(e.target.value)} style={{ backgroundColor: '#e8ba7d' }} />
+              <input id="user" value={username} onChange={(e) => setUsername(e.target.value)} style={{ backgroundColor: '#e8ba7d' }} />
               <div style={{ display: 'inline-block' }}>Username</div>
             </div>
             <div>
