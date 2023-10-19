@@ -4,7 +4,7 @@ import Button from '@mui/material/Button';
 const SaveTheFrogs = () => {
   const handleClick = () => {
     event.preventDefault();
-    window.open('https://panamawildlife.org/amphibians/');
+    window.open('https://savethefrogs.com/');
   };
 
   return (

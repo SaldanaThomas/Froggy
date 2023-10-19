@@ -6,7 +6,7 @@ import Login from './Login.jsx';
 import Search from './SearchOptions/Search.jsx';
 import Overview from './Overview.jsx';
 import Drinks from './Drinks.jsx';
-import logo from '../assets/Frog.png';
+import Logo from '../assets/Frog.png';
 
 function App() {
   const [currentDrink, setCurrentDrink] = useState({});
@@ -91,7 +91,7 @@ function App() {
     <div>
       <Background />
       <div className="mainHeader">
-        <img src={logo} alt="logo" />
+        <img src={Logo} alt="logo" />
         <Login
           currentUser={currentUser}
           setCurrentUser={setCurrentUser}
