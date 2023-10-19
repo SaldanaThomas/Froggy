@@ -50,7 +50,9 @@ function App() {
 
   const viewDrink = (drink) => setCurrentDrink(drink);
 
-  const getDrinkByID = (item) => requests.getDrinkByID(item, (drink) => setCurrentDrink(drink));
+  const getDrinkByID = (item) => {
+    requests.getDrinkByID(item, (drink) => setCurrentDrink(drink));
+  };
 
   const searchCategory = (criteria) => {
     requests.searchCategory(criteria, (drinks) => updatePageInfo(`Category: ${criteria}`, drinks));
@@ -70,6 +72,10 @@ function App() {
 
   const searchLetter = (letter) => {
     requests.searchLetter(letter, (drinks) => updatePageInfo(`Starts With: "${letter.toUpperCase()}"`, drinks));
+  };
+
+  const searchRandom = () => {
+    requests.getRandomCocktail((drink) => setCurrentDrink(drink));
   };
 
   const searchQuery = () => {
@@ -102,6 +108,7 @@ function App() {
         searchAlcoholContent={searchAlcoholContent}
         searchGlassType={searchGlassType}
         searchLetter={searchLetter}
+        searchRandom={searchRandom}
       />
       <div style={{ display: 'flex', justifyContent: 'center' }}>
         <input id="searchField" value={query} onChange={(e) => setQuery(e.target.value)} />

@@ -3,18 +3,18 @@ import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 
-const Glass = ({ glass, getRelated }) => {
+const Categories = ({
+  category, search, type, property,
+}) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
 
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
+  const handleClick = (event) => setAnchorEl(event.currentTarget);
 
   const handleClose = (item) => {
     setAnchorEl(null);
     if (typeof item === 'string') {
-      getRelated(item);
+      search(item);
     }
   };
 
@@ -28,7 +28,7 @@ const Glass = ({ glass, getRelated }) => {
         aria-expanded={open ? 'true' : undefined}
         onClick={handleClick}
       >
-        Glass Type
+        {type}
       </Button>
       <Menu
         id="basic-menu"
@@ -39,13 +39,13 @@ const Glass = ({ glass, getRelated }) => {
           'aria-labelledby': 'basic-button',
         }}
       >
-        {glass?.map((type, index) => (
+        {category?.map((content, index) => (
           <MenuItem
-            onClick={() => handleClose(type.strGlass)}
-            key={`${index + type.strGlass}`}
+            onClick={() => handleClose(content[property])}
+            key={`${index + content[property]}`}
             style={{ backgroundColor: '#8aaabd' }}
           >
-            {type.strGlass}
+            {content[property]}
           </MenuItem>
         ))}
       </Menu>
@@ -53,4 +53,4 @@ const Glass = ({ glass, getRelated }) => {
   );
 };
 
-export default Glass;
+export default Categories;
