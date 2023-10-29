@@ -12,23 +12,19 @@ export default function Description({ item }) {
   const [open, setOpen] = useState(false);
   const [ingredient, setIngredient] = useState({});
 
-  const handleClickOpen = () => setOpen(true);
-
-  const handleClose = () => setOpen(false);
+  const toggleOpen = () => setOpen(!open);
 
   useEffect(() => {
     if (item) {
       axios.get(`/searchByIngredientName?i=${item}`)
-        .then(({ data }) => setIngredient(data.ingredients[0]))
-        .catch((err) => console.error(err));
+        .then(({ data }) => {
+          data.strType = data.strType || <img src={Missing} alt="Detail Missing" />;
+          data.strAlcohol = data.strAlcohol || <img src={Missing} alt="Detail Missing" />;
+          data.strABV = data.strABV || <img src={Missing} alt="Detail Missing" />;
+          setIngredient(data);
+        }).catch((err) => console.error(err));
     }
   }, []);
-
-  useEffect(() => {
-    ingredient.strType = ingredient.strType || <img src={Missing} alt="Detail Missing" />;
-    ingredient.strAlcohol = ingredient.strAlcohol || <img src={Missing} alt="Detail Missing" />;
-    ingredient.strABV = ingredient.strABV || <img src={Missing} alt="Detail Missing" />;
-  }, [ingredient]);
 
   return (
     <div>
@@ -37,13 +33,13 @@ export default function Description({ item }) {
           <Button
             style={{ color: 'aquamarine', border: 'solid 1px aquamarine' }}
             variant="outlined"
-            onClick={handleClickOpen}
+            onClick={toggleOpen}
           >
             Description
           </Button>
           <Dialog
             open={open}
-            onClose={handleClose}
+            onClose={toggleOpen}
             aria-labelledby="alert-dialog-title"
             aria-describedby="alert-dialog-description"
           >
@@ -66,7 +62,7 @@ export default function Description({ item }) {
               </DialogContentText>
             </DialogContent>
             <DialogActions style={{ backgroundColor: '#8aaabd', borderTop: '1px solid' }}>
-              <Button style={{ color: 'aquamarine', border: '1px solid aquamarine' }} onClick={handleClose} autoFocus>
+              <Button style={{ color: 'aquamarine', border: '1px solid aquamarine' }} onClick={toggleOpen} autoFocus>
                 Close
               </Button>
             </DialogActions>

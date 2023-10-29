@@ -80,7 +80,7 @@ module.exports = {
       req.query.i
     }`;
     axios.request(options)
-      .then((response) => res.status(200).send(response.data))
+      .then((response) => res.status(200).send(response.data.ingredients[0]))
       .catch(() => res.sendStatus(404));
   },
 

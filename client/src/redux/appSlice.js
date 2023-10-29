@@ -76,6 +76,7 @@ const appSlice = createSlice({
     setQuery: (state, action) => {
       state.query = action.payload;
     },
+
   },
 });
 

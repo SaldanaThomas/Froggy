@@ -143,11 +143,11 @@ const Overview = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {/* {render && maxIngredients.map((item, index) => buildTableRow(
+            {render && maxIngredients.map((item, index) => buildTableRow(
               `strIngredient${index + 1}`,
               `strMeasure${index + 1}`,
               index,
-            ))} */}
+            ))}
             {!render && maxIngredients.map((item, index) => buildTableRow(
               `strIngredient${index + 1}`,
               `strMeasure${index + 1}`,
