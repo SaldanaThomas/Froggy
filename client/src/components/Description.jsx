@@ -12,20 +12,14 @@ export default function Description({ item }) {
   const [open, setOpen] = useState(false);
   const [ingredient, setIngredient] = useState({});
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
+  const handleClickOpen = () => setOpen(true);
 
-  const handleClose = () => {
-    setOpen(false);
-  };
+  const handleClose = () => setOpen(false);
 
   useEffect(() => {
     if (item) {
       axios.get(`/searchByIngredientName?i=${item}`)
-        .then(({ data }) => {
-          setIngredient(data.ingredients[0]);
-        })
+        .then(({ data }) => setIngredient(data.ingredients[0]))
         .catch((err) => console.error(err));
     }
   }, []);

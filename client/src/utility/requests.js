@@ -1,21 +1,21 @@
 import axios from 'axios';
 
 const requests = {
-  getUserLogin: (user, password, callback) => {
-    axios.get('/userLogin', { params: { user, password } })
+  getUserLogin: (username, password, callback) => {
+    axios.get('/userLogin', { params: { username, password } })
       .then(({ data }) => callback(data.user, data.drinks))
       .catch((err) => console.error(err));
   },
 
   getUser: (user, callback) => {
     axios.get('/user', { params: { user } })
-      .then(({ data }) => callback(data.user, data.drinks))
+      .then(({ data }) => callback(data))
       .catch((err) => console.error(err));
   },
 
   getUserDrinks: (user, callback) => {
     axios.get('/user', { params: { user } })
-      .then(({ data }) => callback(data.drinks))
+      .then(({ data }) => callback(data))
       .catch((err) => console.error(err));
   },
 

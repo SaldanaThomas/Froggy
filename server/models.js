@@ -2,22 +2,18 @@ const sha256 = require('js-sha256');
 const db = require('./database.js');
 
 module.exports = {
-  userLoginGet: (user, pass, callback) => {
-    db.findOne({ user, password: sha256(pass) }, (err, result) => {
-      if (result) {
-        result.password = null;
-      }
-      callback(err, result);
-    });
+  userLoginGet: (username, password, callback) => {
+    db.findOne({ username, password: sha256(password) })
+      .then((result) => {
+        const { user, drinks } = result;
+        callback(null, { user, drinks });
+      }).catch((err) => callback(err));
   },
 
   userGet: (user, callback) => {
-    db.findOne({ user }, (err, result) => {
-      if (result) {
-        result.password = null;
-      }
-      callback(err, result);
-    });
+    db.findOne({ user })
+      .then((result) => callback(null, result.drinks))
+      .catch((err) => callback(err));
   },
 
   userPost: (data, callback) => {

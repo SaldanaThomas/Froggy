@@ -1,15 +1,19 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { Paper, Button } from '@mui/material';
+import { setCurrentDrink } from '../redux/appSlice.js';
+import requests from '../utility/requests.js';
 
-const Drinks = ({ drink, viewDrink }) => {
+const Drinks = ({ drink, missingData }) => {
+  const dispatch = useDispatch();
+
+  const searchProduct = () => window.open(`http://www.google.com/search?q=${drink.strDrink}`);
+
   const handleClick = (e) => {
     e.preventDefault();
     window.scroll({ top: -Math.abs(document.body.scrollHeight), left: 0, behavior: 'smooth' });
-    viewDrink(drink);
-  };
-
-  const searchProduct = () => {
-    window.open(`http://www.google.com/search?q=${drink.strDrink}`);
+    if (missingData) requests.getDrinkByID(drink, (data) => dispatch(setCurrentDrink(data)));
+    else dispatch(setCurrentDrink(drink));
   };
 
   return (

@@ -1,5 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import Carousel from 'react-material-ui-carousel';
+import {
+  setCurrentUser, setCurrentDrink, setUserDrinks, setPopularDrinks, setLatestDrinks,
+  setCategories, setIngredients, setAlcoholic, setGlass, setFilter, setFilteredDrinks, setQuery,
+} from '../redux/appSlice.js';
 import requests from '../utility/requests.js';
 import Background from './Background.jsx';
 import Login from './Login.jsx';
@@ -9,84 +14,42 @@ import Drinks from './Drinks.jsx';
 import Logo from '../assets/Frog.png';
 
 const App = () => {
-  const [currentDrink, setCurrentDrink] = useState({});
-  const [currentUser, setCurrentUser] = useState('');
-  const [userDrinks, setUserDrinks] = useState([]);
-  const [filteredDrinks, setFilteredDrinks] = useState([]);
-  const [filter, setFilter] = useState('');
-  const [popularDrinks, setPopularDrinks] = useState([]);
-  const [latestDrinks, setLatestDrinks] = useState([]);
-  const [categories, setCategories] = useState([]);
-  const [ingredients, setIngredients] = useState([]);
-  const [alcoholic, setAlcoholic] = useState([]);
-  const [glass, setGlass] = useState([]);
-  const [query, setQuery] = useState('');
+  const {
+    userDrinks, filter, filteredDrinks, popularDrinks, latestDrinks, query,
+  } = useSelector((state) => state.app);
+  const dispatch = useDispatch();
 
   const updatePageInfo = (filterDetails, drinks) => {
     if (drinks.length) {
       requests.getDrinkByID(drinks[0], (drink) => {
-        setCurrentDrink(drink);
-        setFilter(filterDetails);
-        setFilteredDrinks(drinks);
+        dispatch(setCurrentDrink(drink));
+        dispatch(setFilter(filterDetails));
+        dispatch(setFilteredDrinks(drinks));
       });
     } else {
       window.alert('No results found');
     }
   };
 
-  const getUserDrinks = (username) => {
-    requests.getUserDrinks(username, (drinks) => setUserDrinks(drinks));
-  };
-
   const getDrinks = () => {
-    requests.getRandomCocktail((drink) => setCurrentDrink(drink));
-    requests.getPopularCocktails((drinks) => setPopularDrinks(drinks));
-    requests.getLatestCocktails((drinks) => setLatestDrinks(drinks));
-    requests.getCategories((items) => setCategories(items));
-    requests.getIngredients((items) => setIngredients(items));
-    requests.getAlcoholContent((items) => setAlcoholic(items));
-    requests.getGlassType((items) => setGlass(items));
+    requests.getRandomCocktail((drink) => dispatch(setCurrentDrink(drink)));
+    requests.getPopularCocktails((drinks) => dispatch(setPopularDrinks(drinks)));
+    requests.getLatestCocktails((drinks) => dispatch(setLatestDrinks(drinks)));
+    requests.getCategories((items) => dispatch(setCategories(items)));
+    requests.getIngredients((items) => dispatch(setIngredients(items)));
+    requests.getAlcoholContent((items) => dispatch(setAlcoholic(items)));
+    requests.getGlassType((items) => dispatch(setGlass(items)));
     const loggedIn = localStorage.getItem('logged in');
     if (loggedIn) {
-      setCurrentUser(loggedIn);
-      requests.getUser(loggedIn, (user, drinks) => setUserDrinks(drinks));
+      dispatch(setCurrentUser(loggedIn));
+      requests.getUser(loggedIn, (drinks) => dispatch(setUserDrinks(drinks)));
     }
-  };
-
-  const viewDrink = (drink) => setCurrentDrink(drink);
-
-  const getDrinkByID = (item) => {
-    requests.getDrinkByID(item, (drink) => setCurrentDrink(drink));
-  };
-
-  const searchCategory = (criteria) => {
-    requests.searchCategory(criteria, (drinks) => updatePageInfo(`Category: ${criteria}`, drinks));
-  };
-
-  const searchIngredient = (criteria) => {
-    requests.searchIngredient(criteria, (drinks) => updatePageInfo(`Ingredient: ${criteria}`, drinks));
-  };
-
-  const searchAlcoholContent = (criteria) => {
-    requests.searchAlcoholContent(criteria, (drinks) => updatePageInfo(`Alcohol: ${criteria}`, drinks));
-  };
-
-  const searchGlassType = (criteria) => {
-    requests.searchGlassType(criteria, (drinks) => updatePageInfo(`Glass Type: ${criteria}`, drinks));
-  };
-
-  const searchLetter = (letter) => {
-    requests.searchLetter(letter, (drinks) => updatePageInfo(`Starts With: "${letter.toUpperCase()}"`, drinks));
-  };
-
-  const searchRandom = () => {
-    requests.getRandomCocktail((drink) => setCurrentDrink(drink));
   };
 
   const searchQuery = () => {
     if (query) {
       requests.searchQuery(query.toLowerCase(), (drinks) => updatePageInfo(`Results for: "${query.toUpperCase()}"`, drinks));
-      setQuery('');
+      dispatch(setQuery(''));
     }
   };
 
@@ -96,68 +59,38 @@ const App = () => {
     <div>
       <Background />
       <div className="mainHeader">
-        <img src={Logo} alt="logo" />
-        <Login
-          currentUser={currentUser}
-          setCurrentUser={setCurrentUser}
-          setUserDrinks={setUserDrinks}
-        />
+        <img src={Logo} alt="logo" style={{ width: '35%' }} />
+        <Login />
       </div>
-      <Search
-        categories={categories}
-        ingredients={ingredients}
-        alcoholic={alcoholic}
-        glass={glass}
-        searchCategory={searchCategory}
-        searchIngredient={searchIngredient}
-        searchAlcoholContent={searchAlcoholContent}
-        searchGlassType={searchGlassType}
-        searchLetter={searchLetter}
-        searchRandom={searchRandom}
-      />
+      <Search />
       <div style={{ display: 'flex', justifyContent: 'center' }}>
-        <input id="searchField" value={query} onChange={(e) => setQuery(e.target.value)} />
+        <input id="searchField" value={query} onChange={(e) => dispatch(setQuery(e.target.value))} />
         <button className="searchFieldButton" type="button" onClick={searchQuery}>
           SEARCH FOR A DRINK
         </button>
       </div>
-      <Overview
-        drink={currentDrink}
-        userDrinks={userDrinks}
-        currentUser={currentUser}
-        getUserDrinks={getUserDrinks}
-      />
-      {(filteredDrinks.length && (
-      <h2 className="carouselHeader">{filter}</h2>
-      ))
+      <Overview />
+      {(filteredDrinks.length && (<h2 className="carouselHeader">{filter}</h2>))
         || (userDrinks.length && (<h2 className="carouselHeader">Your Drinks</h2>))
         || null}
       {(filteredDrinks.length && (
         <Carousel navButtonsAlwaysInvisible>
-          {filteredDrinks.map((drink, index) => (
-            <Drinks drink={drink} viewDrink={getDrinkByID} key={`${drink.strName + index}`} />
-          ))}
+          {filteredDrinks.map((drink, index) => <Drinks drink={drink} missingData key={`${drink.strName + index}`} />)}
         </Carousel>
       ))
         || (userDrinks.length && (
           <Carousel navButtonsAlwaysInvisible>
-            {userDrinks.map((drink, index) => (
-              <Drinks drink={drink} viewDrink={getDrinkByID} key={`${drink.strName + index}`} />
-            ))}
+            {userDrinks.map((drink, index) => <Drinks drink={drink} missingData key={`${drink.strName + index}`} />)}
           </Carousel>
         ))
         || null}
       <h2 className="carouselHeader">Popular Drinks</h2>
       <Carousel navButtonsAlwaysInvisible>
-        {popularDrinks.map((drink, index) => (
-          <Drinks drink={drink} viewDrink={viewDrink} key={`${drink.strName + index}`} />
-        ))}
+        {popularDrinks.map((drink, index) => <Drinks drink={drink} key={`${drink.strName + index}`} />)}
       </Carousel>
       <h2 className="carouselHeader">Latest Drinks</h2>
       <Carousel navButtonsAlwaysInvisible>
-        {latestDrinks.map((drink, index) => (
-          <Drinks drink={drink} viewDrink={viewDrink} key={`${drink.strName + index}`} />
-        ))}
+        {latestDrinks.map((drink, index) => <Drinks drink={drink} key={`${drink.strName + index}`} />)}
       </Carousel>
     </div>
   );
