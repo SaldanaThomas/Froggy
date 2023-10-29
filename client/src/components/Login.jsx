@@ -12,6 +12,7 @@ const Login = ({
       requests.getUserLogin(username, password, (user, drinks) => {
         setCurrentUser(user);
         setUserDrinks(drinks);
+        localStorage.setItem('logged in', user);
       });
       setUsername('');
       setPassword('');
@@ -35,6 +36,7 @@ const Login = ({
   const signOut = () => {
     setCurrentUser('');
     setUserDrinks([]);
+    localStorage.clear();
   };
 
   return (

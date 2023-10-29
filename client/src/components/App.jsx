@@ -8,7 +8,7 @@ import Overview from './Overview.jsx';
 import Drinks from './Drinks.jsx';
 import Logo from '../assets/Frog.png';
 
-function App() {
+const App = () => {
   const [currentDrink, setCurrentDrink] = useState({});
   const [currentUser, setCurrentUser] = useState('');
   const [userDrinks, setUserDrinks] = useState([]);
@@ -46,6 +46,11 @@ function App() {
     requests.getIngredients((items) => setIngredients(items));
     requests.getAlcoholContent((items) => setAlcoholic(items));
     requests.getGlassType((items) => setGlass(items));
+    const loggedIn = localStorage.getItem('logged in');
+    if (loggedIn) {
+      setCurrentUser(loggedIn);
+      requests.getUser(loggedIn, (user, drinks) => setUserDrinks(drinks));
+    }
   };
 
   const viewDrink = (drink) => setCurrentDrink(drink);
@@ -156,6 +161,6 @@ function App() {
       </Carousel>
     </div>
   );
-}
+};
 
 export default App;

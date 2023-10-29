@@ -7,6 +7,12 @@ const requests = {
       .catch((err) => console.error(err));
   },
 
+  getUser: (user, callback) => {
+    axios.get('/user', { params: { user } })
+      .then(({ data }) => callback(data.user, data.drinks))
+      .catch((err) => console.error(err));
+  },
+
   getUserDrinks: (user, callback) => {
     axios.get('/user', { params: { user } })
       .then(({ data }) => callback(data.drinks))
