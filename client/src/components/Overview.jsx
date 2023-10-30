@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import axios from 'axios';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -8,8 +7,8 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { setUserDrinks } from '../redux/appSlice.js';
 import requests from '../utility/requests.js';
+import { setUserDrinks } from '../redux/appSlice.js';
 import Description from './Description.jsx';
 import youtube from '../assets/YouTube.png';
 
@@ -28,15 +27,15 @@ const Overview = () => {
   const dispatch = useDispatch();
 
   const addDrink = () => {
-    axios.patch('/user', drinkData)
-      .then(() => requests.getUserDrinks(currentUser, (drinks) => dispatch(setUserDrinks(drinks))))
-      .catch((err) => console.error(err));
+    requests.addDrink(drinkData, () => {
+      requests.getUserDrinks(currentUser, (drinks) => dispatch(setUserDrinks(drinks)));
+    });
   };
 
   const removeDrink = () => {
-    axios.delete('/user', { data: { drinkData } })
-      .then(() => requests.getUserDrinks(currentUser, (drinks) => dispatch(setUserDrinks(drinks))))
-      .catch((err) => console.error(err));
+    requests.removeDrink(drinkData, () => {
+      requests.getUserDrinks(currentUser, (drinks) => dispatch(setUserDrinks(drinks)));
+    });
   };
 
   const searchProduct = (ingredient) => window.open(`http://www.google.com/search?q=${ingredient}`);

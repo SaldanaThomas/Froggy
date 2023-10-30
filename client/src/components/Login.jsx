@@ -11,7 +11,7 @@ const Login = () => {
 
   const signIn = () => {
     if (username && password) {
-      requests.getUserLogin(username, password, (user, drinks) => {
+      requests.signIn(username, password, (user, drinks) => {
         dispatch(setCurrentUser(user));
         dispatch(setUserDrinks(drinks));
         localStorage.setItem('logged in', user);
@@ -23,7 +23,7 @@ const Login = () => {
 
   const signUp = () => {
     if (username && password) {
-      requests.addUser(username, password, (success) => {
+      requests.signUp(username, password, (success) => {
         if (success) {
           signIn();
         } else {

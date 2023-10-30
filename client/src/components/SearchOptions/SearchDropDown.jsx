@@ -13,9 +13,7 @@ const Categories = ({
 
   const handleClose = (item) => {
     setAnchorEl(null);
-    if (typeof item === 'string') {
-      search(item);
-    }
+    if (typeof item === 'string') search(item);
   };
 
   return (

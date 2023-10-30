@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Carousel from 'react-material-ui-carousel';
 import {
   setCurrentUser, setCurrentDrink, setUserDrinks, setPopularDrinks, setLatestDrinks,
-  setCategories, setIngredients, setAlcoholic, setGlass, setFilter, setFilteredDrinks, setQuery,
+  setCategories, setIngredients, setAlcoholic, setGlass,
 } from '../redux/appSlice.js';
 import requests from '../utility/requests.js';
 import Background from './Background.jsx';
@@ -15,21 +15,9 @@ import Logo from '../assets/Frog.png';
 
 const App = () => {
   const {
-    userDrinks, filter, filteredDrinks, popularDrinks, latestDrinks, query,
+    userDrinks, filter, filteredDrinks, popularDrinks, latestDrinks,
   } = useSelector((state) => state.app);
   const dispatch = useDispatch();
-
-  const updatePageInfo = (filterDetails, drinks) => {
-    if (drinks.length) {
-      requests.getDrinkByID(drinks[0], (drink) => {
-        dispatch(setCurrentDrink(drink));
-        dispatch(setFilter(filterDetails));
-        dispatch(setFilteredDrinks(drinks));
-      });
-    } else {
-      window.alert('No results found');
-    }
-  };
 
   const getDrinks = () => {
     requests.getRandomCocktail((drink) => dispatch(setCurrentDrink(drink)));
@@ -46,13 +34,6 @@ const App = () => {
     }
   };
 
-  const searchQuery = () => {
-    if (query) {
-      requests.searchQuery(query.toLowerCase(), (drinks) => updatePageInfo(`Results for: "${query.toUpperCase()}"`, drinks));
-      dispatch(setQuery(''));
-    }
-  };
-
   useEffect(() => getDrinks(), []);
 
   return (
@@ -63,12 +44,6 @@ const App = () => {
         <Login />
       </div>
       <Search />
-      <div style={{ display: 'flex', justifyContent: 'center' }}>
-        <input id="searchField" value={query} onChange={(e) => dispatch(setQuery(e.target.value))} />
-        <button className="searchFieldButton" type="button" onClick={searchQuery}>
-          SEARCH FOR A DRINK
-        </button>
-      </div>
       <Overview />
       {(filteredDrinks.length && (<h2 className="carouselHeader">{filter}</h2>))
         || (userDrinks.length && (<h2 className="carouselHeader">Your Drinks</h2>))

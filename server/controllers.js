@@ -75,7 +75,7 @@ module.exports = {
       .catch(() => res.sendStatus(404));
   },
 
-  searchByIngredientName: (req, res) => {
+  searchIngredientInfo: (req, res) => {
     options.url = `${process.env.API_URL}search.php?${Object.keys(req.query)}=${
       req.query.i
     }`;

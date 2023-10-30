@@ -1,10 +1,13 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import Button from '@mui/material/Button';
+import { setCurrentDrink } from '../../redux/appSlice.js';
+import requests from '../../utility/requests.js';
 
-const FeelingFroggy = ({ search }) => {
-  const handleClick = () => {
-    event.preventDefault();
-    search();
+const FeelingFroggy = () => {
+  const dispatch = useDispatch();
+  const searchRandom = () => {
+    requests.getRandomCocktail((drink) => dispatch(setCurrentDrink(drink)));
   };
 
   return (
@@ -15,7 +18,7 @@ const FeelingFroggy = ({ search }) => {
         aria-controls={open ? 'basic-menu' : undefined}
         aria-haspopup="true"
         aria-expanded={open ? 'true' : undefined}
-        onClick={handleClick}
+        onClick={searchRandom}
       >
         Feeling Froggy
       </Button>

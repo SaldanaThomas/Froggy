@@ -35,10 +35,7 @@ const Drinks = ({ drink, missingData }) => {
       </Paper>
       <Button
         style={{
-          alignText: 'center',
-          color: 'aquamarine',
-          padding: '0px',
-          width: '100%',
+          alignText: 'center', color: 'aquamarine', padding: '0px', width: '100%',
         }}
         className="CheckButton"
         onClick={searchProduct}

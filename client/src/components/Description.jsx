@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import requests from '../utility/requests.js';
 import Missing from '../assets/FrogWithSign.png';
 
-export default function Description({ item }) {
+const Description = ({ item }) => {
   const [open, setOpen] = useState(false);
   const [ingredient, setIngredient] = useState({});
 
@@ -16,13 +16,12 @@ export default function Description({ item }) {
 
   useEffect(() => {
     if (item) {
-      axios.get(`/searchByIngredientName?i=${item}`)
-        .then(({ data }) => {
-          data.strType = data.strType || <img src={Missing} alt="Detail Missing" />;
-          data.strAlcohol = data.strAlcohol || <img src={Missing} alt="Detail Missing" />;
-          data.strABV = data.strABV || <img src={Missing} alt="Detail Missing" />;
-          setIngredient(data);
-        }).catch((err) => console.error(err));
+      requests.searchIngredientInfo(item, (data) => {
+        data.strType = data.strType || <img src={Missing} alt="Detail Missing" />;
+        data.strAlcohol = data.strAlcohol || <img src={Missing} alt="Detail Missing" />;
+        data.strABV = data.strABV || <img src={Missing} alt="Detail Missing" />;
+        setIngredient(data);
+      });
     }
   }, []);
 
@@ -73,4 +72,6 @@ export default function Description({ item }) {
       )}
     </div>
   );
-}
+};
+
+export default Description;

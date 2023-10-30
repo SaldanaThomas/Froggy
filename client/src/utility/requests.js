@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const requests = {
-  getUserLogin: (username, password, callback) => {
+  signIn: (username, password, callback) => {
     axios.get('/userLogin', { params: { username, password } })
       .then(({ data }) => callback(data.user, data.drinks))
       .catch((err) => console.error(err));
@@ -19,10 +19,22 @@ const requests = {
       .catch((err) => console.error(err));
   },
 
-  addUser: (user, password, callback) => {
+  signUp: (user, password, callback) => {
     axios.post('/user', { user, password, drinks: [] })
       .then(() => callback(true))
       .catch(() => callback(false));
+  },
+
+  addDrink: (drinkData, callback) => {
+    axios.patch('/user', drinkData)
+      .then(() => callback())
+      .catch((err) => console.error(err));
+  },
+
+  removeDrink: (drinkData, callback) => {
+    axios.delete('/user', { data: { drinkData } })
+      .then(() => callback())
+      .catch((err) => console.error(err));
   },
 
   getDrinkByID: (drink, callback) => {
@@ -82,6 +94,12 @@ const requests = {
   searchIngredient: (criteria, callback) => {
     axios.get(`/filterMultiIngredient?i=${criteria}`)
       .then(({ data }) => callback(typeof data.drinks === 'string' ? [] : data.drinks.slice(0, 20)))
+      .catch((err) => console.error(err));
+  },
+
+  searchIngredientInfo: (input, callback) => {
+    axios.get(`/searchIngredientInfo?i=${input}`)
+      .then(({ data }) => callback(data))
       .catch((err) => console.error(err));
   },
 

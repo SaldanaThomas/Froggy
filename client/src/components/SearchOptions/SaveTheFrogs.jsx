@@ -2,11 +2,6 @@ import React from 'react';
 import Button from '@mui/material/Button';
 
 const SaveTheFrogs = () => {
-  const handleClick = () => {
-    event.preventDefault();
-    window.open('https://savethefrogs.com/');
-  };
-
   return (
     <div>
       <Button
@@ -15,7 +10,7 @@ const SaveTheFrogs = () => {
         aria-controls={open ? 'basic-menu' : undefined}
         aria-haspopup="true"
         aria-expanded={open ? 'true' : undefined}
-        onClick={handleClick}
+        onClick={() => window.open('https://savethefrogs.com/')}
       >
         Save The Frogs
       </Button>

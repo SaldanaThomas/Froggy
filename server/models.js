@@ -27,8 +27,7 @@ module.exports = {
   },
 
   userDelete: (data, callback) => {
-    console.log(data);
-    db.update({ user: data.user }, { $pull: { drinks: { idDrink: data.drink.idDrink } } })
+    db.updateOne({ user: data.user }, { $pull: { drinks: { idDrink: data.drink.idDrink } } })
       .exec((err) => callback(err));
   },
 };

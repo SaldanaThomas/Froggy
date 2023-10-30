@@ -9,7 +9,7 @@ router.delete('/user', controllers.userDelete); //
 
 router.get('/searchByName', controllers.searchByName); //
 router.get('/searchByFirstLetter', controllers.searchByFirstLetter); //
-router.get('/searchByIngredientName', controllers.searchByIngredientName); //
+router.get('/searchIngredientInfo', controllers.searchIngredientInfo); //
 router.get('/searchByID', controllers.searchByID); //
 router.get('/searchByIngredientID', controllers.searchByIngredientID);
 router.get('/searchIngredient', controllers.searchIngredient);
