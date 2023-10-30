@@ -82,7 +82,7 @@ const Search = () => {
         </Grid>
       </Box>
       <div style={{ display: 'flex', justifyContent: 'center' }}>
-        <input id="searchField" value={query} onChange={(e) => dispatch(setQuery(e.target.value))} />
+        <input id="searchField" value={query} onChange={(e) => dispatch(setQuery(e.target.value))} autoComplete="off" />
         <button className="searchFieldButton" type="button" onClick={searchQuery}>
           SEARCH FOR A DRINK
         </button>

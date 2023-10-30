@@ -12,6 +12,7 @@ const Login = () => {
   const signIn = () => {
     if (username && password) {
       requests.signIn(username, password, (user, drinks) => {
+        console.log('sign in', user, drinks);
         dispatch(setCurrentUser(user));
         dispatch(setUserDrinks(drinks));
         localStorage.setItem('logged in', user);

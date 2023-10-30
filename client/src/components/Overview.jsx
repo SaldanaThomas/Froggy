@@ -77,7 +77,7 @@ const Overview = () => {
     }
     return null;
   };
-
+  // console.log(userDrinks, currentDrink);
   const checkUserDrink = () => {
     for (let i = 0; i < userDrinks.length; i += 1) {
       if (userDrinks[i].idDrink === currentDrink.idDrink) {
