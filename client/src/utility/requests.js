@@ -19,14 +19,14 @@ const requests = {
       .catch(() => callback(false));
   },
 
-  addDrink: (drinkData, callback) => {
-    axios.patch('/user', drinkData)
+  addDrink: (user, drink, callback) => {
+    axios.patch('/user', { user, drink })
       .then(() => callback())
       .catch((err) => console.error(err));
   },
 
-  removeDrink: (drinkData, callback) => {
-    axios.delete('/user', { data: { drinkData } })
+  removeDrink: (user, idDrink, callback) => {
+    axios.delete('/user', { data: { user, idDrink } })
       .then(() => callback())
       .catch((err) => console.error(err));
   },

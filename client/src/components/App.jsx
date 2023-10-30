@@ -8,9 +8,9 @@ import {
 import requests from '../utility/requests.js';
 import Background from './Background.jsx';
 import Login from './Login.jsx';
-import Search from './SearchOptions/Search.jsx';
-import Overview from './Overview.jsx';
-import Drinks from './Drinks.jsx';
+import Search from './Search.jsx';
+import MainDrink from './MainDrink.jsx';
+import DrinkCarousel from './DrinkCarousel.jsx';
 import Logo from '../assets/Frog.png';
 
 const App = () => {
@@ -44,28 +44,28 @@ const App = () => {
         <Login />
       </div>
       <Search />
-      <Overview />
+      <MainDrink />
       {(filteredDrinks.length && (<h2 className="carouselHeader">{filter}</h2>))
         || (userDrinks.length && (<h2 className="carouselHeader">Your Drinks</h2>))
         || null}
       {(filteredDrinks.length && (
         <Carousel navButtonsAlwaysInvisible>
-          {filteredDrinks.map((drink, index) => <Drinks drink={drink} missingData key={`${drink.strName + index}`} />)}
+          {filteredDrinks.map((drink, index) => <DrinkCarousel drink={drink} missingData key={`${drink.strName + index}`} />)}
         </Carousel>
       ))
         || (userDrinks.length && (
           <Carousel navButtonsAlwaysInvisible>
-            {userDrinks.map((drink, index) => <Drinks drink={drink} missingData key={`${drink.strName + index}`} />)}
+            {userDrinks.map((drink, index) => <DrinkCarousel drink={drink} missingData key={`${drink.strName + index}`} />)}
           </Carousel>
         ))
         || null}
       <h2 className="carouselHeader">Popular Drinks</h2>
       <Carousel navButtonsAlwaysInvisible>
-        {popularDrinks.map((drink, index) => <Drinks drink={drink} key={`${drink.strName + index}`} />)}
+        {popularDrinks.map((drink, index) => <DrinkCarousel drink={drink} key={`${drink.strName + index}`} />)}
       </Carousel>
       <h2 className="carouselHeader">Latest Drinks</h2>
       <Carousel navButtonsAlwaysInvisible>
-        {latestDrinks.map((drink, index) => <Drinks drink={drink} key={`${drink.strName + index}`} />)}
+        {latestDrinks.map((drink, index) => <DrinkCarousel drink={drink} key={`${drink.strName + index}`} />)}
       </Carousel>
     </div>
   );

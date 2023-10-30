@@ -4,10 +4,8 @@ import { Paper, Button } from '@mui/material';
 import { setCurrentDrink } from '../redux/appSlice.js';
 import requests from '../utility/requests.js';
 
-const Drinks = ({ drink, missingData }) => {
+const DrinkCarousel = ({ drink, missingData }) => {
   const dispatch = useDispatch();
-
-  const searchProduct = () => window.open(`http://www.google.com/search?q=${drink.strDrink}`);
 
   const handleClick = (e) => {
     e.preventDefault();
@@ -38,7 +36,7 @@ const Drinks = ({ drink, missingData }) => {
           alignText: 'center', color: 'aquamarine', padding: '0px', width: '100%',
         }}
         className="CheckButton"
-        onClick={searchProduct}
+        onClick={() => window.open(`http://www.google.com/search?q=${drink.strDrink}`)}
       >
         Check it out!
       </Button>
@@ -46,4 +44,4 @@ const Drinks = ({ drink, missingData }) => {
   );
 };
 
-export default Drinks;
+export default DrinkCarousel;

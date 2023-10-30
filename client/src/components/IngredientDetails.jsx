@@ -8,7 +8,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import requests from '../utility/requests.js';
 import Missing from '../assets/FrogWithSign.png';
 
-const Description = ({ item }) => {
+const IngredientDetails = ({ item }) => {
   const [open, setOpen] = useState(false);
   const [ingredient, setIngredient] = useState({});
 
@@ -74,4 +74,4 @@ const Description = ({ item }) => {
   );
 };
 
-export default Description;
+export default IngredientDetails;

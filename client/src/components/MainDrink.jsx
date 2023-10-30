@@ -9,31 +9,28 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import requests from '../utility/requests.js';
 import { setUserDrinks } from '../redux/appSlice.js';
-import Description from './Description.jsx';
+import IngredientDetails from './IngredientDetails.jsx';
 import youtube from '../assets/YouTube.png';
 
-const Overview = () => {
+const MainDrink = () => {
   const { currentUser, currentDrink, userDrinks } = useSelector((state) => state.app);
   const [render, setRender] = useState(false);
   const maxIngredients = new Array(15).fill(0);
-  const drinkData = {
-    user: currentUser,
-    drink: {
-      idDrink: currentDrink.idDrink,
-      strDrink: currentDrink.strDrink,
-      strDrinkThumb: currentDrink.strDrinkThumb,
-    },
+  const drink = {
+    idDrink: currentDrink.idDrink,
+    strDrink: currentDrink.strDrink,
+    strDrinkThumb: currentDrink.strDrinkThumb,
   };
   const dispatch = useDispatch();
 
   const addDrink = () => {
-    requests.addDrink(drinkData, () => {
+    requests.addDrink(currentUser, drink, () => {
       requests.getUserDrinks(currentUser, (drinks) => dispatch(setUserDrinks(drinks)));
     });
   };
 
   const removeDrink = () => {
-    requests.removeDrink(drinkData, () => {
+    requests.removeDrink(currentUser, currentDrink.idDrink, () => {
       requests.getUserDrinks(currentUser, (drinks) => dispatch(setUserDrinks(drinks)));
     });
   };
@@ -46,7 +43,7 @@ const Overview = () => {
         <TableRow key={i} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
           <TableCell align="center" component="th" scope="row" style={{ color: '#e6b363' }}>
             {currentDrink[item]}
-            <Description item={currentDrink[item]} />
+            <IngredientDetails item={currentDrink[item]} />
           </TableCell>
           <TableCell align="center" style={{ color: '#e6b363' }}>
             <img
@@ -77,7 +74,7 @@ const Overview = () => {
     }
     return null;
   };
-  // console.log(userDrinks, currentDrink);
+
   const checkUserDrink = () => {
     for (let i = 0; i < userDrinks.length; i += 1) {
       if (userDrinks[i].idDrink === currentDrink.idDrink) {
@@ -162,4 +159,4 @@ const Overview = () => {
   );
 };
 
-export default Overview;
+export default MainDrink;

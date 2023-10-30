@@ -4,13 +4,13 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import {
   setCurrentDrink, setFilter, setFilteredDrinks, setQuery,
-} from '../../redux/appSlice.js';
-import requests from '../../utility/requests.js';
-import SearchDropDown from './SearchDropDown.jsx';
-import letters from '../../utility/letters.js';
-import FeelingFroggy from './FeelingFroggy.jsx';
-import ThePond from './ThePond.jsx';
-import SaveTheFrogs from './SaveTheFrogs.jsx';
+} from '../redux/appSlice.js';
+import requests from '../utility/requests.js';
+import SearchDropDown from './SearchOptions/SearchDropDown.jsx';
+import letters from '../utility/letters.js';
+import FeelingFroggy from './SearchOptions/FeelingFroggy.jsx';
+import ThePond from './SearchOptions/ThePond.jsx';
+import SaveTheFrogs from './SearchOptions/SaveTheFrogs.jsx';
 
 const Search = () => {
   const {

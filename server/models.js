@@ -11,12 +11,7 @@ module.exports = {
     return db.create(data);
   },
 
-  userPatch: (data) => db.updateOne({ user: data.user }, { $push: { drinks: data.drink } }),
+  userPatch: (user, drink) => db.updateOne({ user }, { $push: { drinks: drink } }),
 
-  userDelete: (data) => {
-    return db.updateOne(
-      { user: data.user },
-      { $pull: { drinks: { idDrink: data.drink.idDrink } } },
-    );
-  },
+  userDelete: (user, idDrink) => db.updateOne({ user }, { $pull: { drinks: { idDrink } } }),
 };
