@@ -30,7 +30,7 @@ const App = () => {
     const loggedIn = localStorage.getItem('logged in');
     if (loggedIn) {
       dispatch(setCurrentUser(loggedIn));
-      requests.getUser(loggedIn, (drinks) => dispatch(setUserDrinks(drinks)));
+      requests.getUserDrinks(loggedIn, (drinks) => dispatch(setUserDrinks(drinks)));
     }
   };
 
